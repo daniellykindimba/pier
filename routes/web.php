@@ -24,5 +24,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('model')->group(function () {
     Route::post('/', 'EditorController@create');
     Route::get('/', 'EditorController@list');
-    Route::get('{model_name}/populate', 'EditorController@populate');
+    Route::post('{model_name}/populate', 'EditorController@populate');
+    Route::get('{model_name}/browse', 'EditorController@browse');
 });

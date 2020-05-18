@@ -24286,23 +24286,23 @@ var router = createRouter();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var DefaultContainer = function DefaultContainer() {
-  return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../UI/DefaultContainer */ "./resources/js/UI/DefaultContainer.vue"));
+  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../UI/DefaultContainer */ "./resources/js/UI/DefaultContainer.vue"));
 };
 
 var Models = function Models() {
-  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../UI/pages/Models */ "./resources/js/UI/pages/Models/index.vue"));
+  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../UI/pages/Models */ "./resources/js/UI/pages/Models/index.vue"));
 };
 
 var ModelsList = function ModelsList() {
-  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/List */ "./resources/js/UI/pages/Models/List.vue"));
+  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/List */ "./resources/js/UI/pages/Models/List.vue"));
 };
 
 var AddModel = function AddModel() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Add */ "./resources/js/UI/pages/Models/Add.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Add */ "./resources/js/UI/pages/Models/Add.vue"));
 };
 
 var ModelDetail = function ModelDetail() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Detail */ "./resources/js/UI/pages/Models/Detail.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Detail */ "./resources/js/UI/pages/Models/Detail.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ([{
@@ -24339,7 +24339,7 @@ var ModelDetail = function ModelDetail() {
 /*!********************************************!*\
   !*** ./resources/js/services/API/index.js ***!
   \********************************************/
-/*! exports provided: fetchModels, insertModel, saveModel, deleteModel */
+/*! exports provided: fetchModels, insertModel, saveModel, deleteModel, populateModel, browseModel */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24348,6 +24348,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertModel", function() { return insertModel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveModel", function() { return saveModel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteModel", function() { return deleteModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "populateModel", function() { return populateModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "browseModel", function() { return browseModel; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _setup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setup */ "./resources/js/services/API/setup.js");
@@ -24462,6 +24464,58 @@ var deleteModel = /*#__PURE__*/function () {
 
   return function deleteModel(_x3) {
     return _ref4.apply(this, arguments);
+  };
+}();
+var populateModel = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(modelName) {
+    var token;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.next = 2;
+            return Object(_auth__WEBPACK_IMPORTED_MODULE_2__["getToken"])();
+
+          case 2:
+            token = _context5.sent;
+            return _context5.abrupt("return", Object(_setup__WEBPACK_IMPORTED_MODULE_1__["post"])("/model/".concat(modelName, "/populate"), null, token));
+
+          case 4:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
+
+  return function populateModel(_x4) {
+    return _ref5.apply(this, arguments);
+  };
+}();
+var browseModel = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(modelName) {
+    var token;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.next = 2;
+            return Object(_auth__WEBPACK_IMPORTED_MODULE_2__["getToken"])();
+
+          case 2:
+            token = _context6.sent;
+            return _context6.abrupt("return", Object(_setup__WEBPACK_IMPORTED_MODULE_1__["get"])("/model/".concat(modelName, "/browse"), token));
+
+          case 4:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+
+  return function browseModel(_x5) {
+    return _ref6.apply(this, arguments);
   };
 }();
 
@@ -24808,7 +24862,7 @@ var createModel = /*#__PURE__*/function () {
             if (!models) models = [];
             models.push(model);
             commit('SET_MODELS', models);
-            _router__WEBPACK_IMPORTED_MODULE_3__["default"].replace('/models');
+            _router__WEBPACK_IMPORTED_MODULE_3__["default"].replace("/models/".concat(model._id, "/details"));
             Object(_utils__WEBPACK_IMPORTED_MODULE_1__["showSuccessToast"])("Model created");
             _context2.next = 19;
             break;

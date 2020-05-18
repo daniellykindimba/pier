@@ -39,7 +39,7 @@ export const createModel = async ({ commit, state }, data) => {
         models.push(model);
 
         commit('SET_MODELS', models);
-        router.replace('/models');
+        router.replace(`/models/${model._id}/details`);
         showSuccessToast("Model created");
     } catch (error) {
         handleNetworkError(error, `Error creating model:`);

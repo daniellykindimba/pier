@@ -7,6 +7,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Faker\Factory as Faker;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class PierMigration extends Model{
     protected $fillable = [
@@ -21,17 +23,55 @@ class PierMigration extends Model{
         return PierMigration::where("name", $model_name)->first();
     }
     
+    static function browse($model){
+        $table_name = Str::snake($model);
+        return DB::table($table_name)->get();
+    }
+    
     static function populate($model){
         $table_name = Str::snake($model);
         $model_name = self::pascal_to_sentence($model);
         $model = PierMigration::where("name", $model_name)->first();
         $fields = json_decode($model->fields);
-        $pierModel = new \stdClass();
+        $types = collect($fields)->map(function($field){
+            return $field->type;
+        })->toArray();
+
+        $images = null;
+
+        if(in_array("image", $types)){
+            try {
+                $response = Http::withoutVerifying()->get('https://api.unsplash.com/photos?per_page=30&order_by=latest&client_id=17ef130962858e4304efe9512cf023387ee5d36f0585e4346f0f70b2f9729964');
+                $images = collect($response->json())->map(function($img){
+                    return $img['urls']['regular'];
+                })->toArray();
+            } catch (\Throwable $th) {}
+        }
+
+        $entries = [];
+        for ($i=0; $i < 25; $i++) { 
+            $entry = self::populateRow($fields, $images);
+            DB::table($table_name)->insert($entry);
+            $entries[] = $entry;
+        }
+        
+        return $entries;
+    }
+
+    static function populateRow($fields, $images){
+        $pierModel = [];
+        $pierModel['_id'] = UUID::v4();
+        $pierModel['created_at'] = now();
+        $pierModel['updated_at'] = now();
+
         foreach($fields as $field) {
             $label = $field->label;
             $type = $field->type;
 
-            $pierModel->{$label} = self::field_generator($type);
+            if($type == "image" && is_array($images) && count($images) > 0)
+                $pierModel[$label] = $images[array_rand($images, 1)];
+            else
+                $pierModel[$label] = self::field_generator($type);
         };
 
         return $pierModel;
@@ -109,16 +149,16 @@ class PierMigration extends Model{
                 return $faker->paragraph;
                 
             case 'string':
-                return $faker->sentence($nbWords = 3, $variableNbWords = true);
+                return $faker->sentence(3, true);
                 
             case 'number':
                 return $faker->numberBetween(13, 237);
                 
             case 'boolean':
-                return $faker->randomElement($array = array (0,1));
+                return $faker->randomElement(array (0,1));
                 
             case 'date':
-                return $faker->dateTimeBetween($startDate = 'now', $endDate = '+3 months', $timezone = null);
+                return $faker->dateTimeBetween('now', '+3 months', null)->format('Y-m-d H:i:s');
             
             default:
                 return "";

@@ -19,5 +19,14 @@ export const saveModel = async (data) => {
 export const deleteModel = async (modelId) => {
     const token = await getToken();
     return remove(`/model/${modelId}`, token);
-  };
-  
+};
+
+export const populateModel = async (modelName) => {
+    const token = await getToken();
+    return post(`/model/${modelName}/populate`, null, token);
+};
+
+export const browseModel = async (modelName) => {
+    const token = await getToken();
+    return get(`/model/${modelName}/browse`, token);
+};

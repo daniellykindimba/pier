@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use App\PierMigration;
 
-use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 
 class EditorController extends Controller
@@ -22,6 +21,11 @@ class EditorController extends Controller
     
     public function populate($model){
         $res = PierMigration::populate($model);
+        return response()->json($res);
+    }
+    
+    public function browse($model){
+        $res = PierMigration::browse($model);
         return response()->json($res);
     }
 }

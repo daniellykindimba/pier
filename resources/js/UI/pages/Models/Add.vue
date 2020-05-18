@@ -90,8 +90,8 @@
 
           <c-stack spacing="5" color="#999">
             <c-form-control>
-              <c-form-label fontSize="xl" htmlFor="name">Model Name</c-form-label>
-              <c-input id="name" type="text" placeholder="E.g Article" size="lg" v-model="name" />
+              <c-form-label fontSize="xl" htmlFor="modelName">Model Name</c-form-label>
+              <c-input id="modelName" type="text" placeholder="E.g Article" size="lg" v-model="name" />
               
               <c-form-helper-text id="email-helper-text">
                 Pascal case is a more standard way to name model
@@ -230,25 +230,24 @@ import { mapState } from 'vuex';
 
 export default {
   name: "ModelsAdd",
+  mounted(){
+    this.$nextTick(() => {
+      this.$el.querySelector("#modelName").focus();
+    })
+  },
   data() {
     return {
       name: "",
       editing: false,
       dbFieldTypes,
       curFieldIndex: -1,
-      fields: [
-        // {
-        //   label: "name",
-        //   type: "long text",
-        // }
-      ]
+      fields: []
     };
   },
   computed: {
     ...mapState(['savingModel'])
   },
   methods: {
-    // async addField() {}
     removeField(index) {
       if(!index)
         index = this.curFieldIndex;
@@ -258,9 +257,6 @@ export default {
       this.curFieldIndex = -1;
     },
     cancelAddField() {
-      // if(!this.editing && this.curFieldIndex === this.fields.length - 1)
-      //   this.fields.splice(this.curFieldIndex, 1);
-
       this.editing = false;
       this.curFieldIndex = -1;
     },

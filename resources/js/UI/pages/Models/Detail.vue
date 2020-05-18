@@ -55,13 +55,24 @@
           Records
         </c-text>
 
-        <c-button @click="populate" v-if="!fetchingModels">
-          Populate
-        </c-button>
-
-        <!-- <c-box d="flex" padding="6" align-items="center" justify-content="center">
+        <c-box d="flex" v-if="fetchingModels || populating || fetchingRecords" padding="6" align-items="center" justify-content="center">
           <c-circular-progress is-indeterminate />
-        </c-box> -->
+        </c-box>
+        
+        <c-box v-else-if="!records.length" 
+          padding="6" d="flex" flex-direction="column" 
+          align-items="center" justify-content="center">
+          
+          No records found.
+
+          <c-button @click="populate">
+            Populate
+          </c-button>
+        </c-box>
+        
+        <c-box d="flex" v-else padding="6" align-items="center" justify-content="center">
+          {{ records.length }} entries.
+        </c-box>
       </c-box>
     </c-box>
   </c-box>
@@ -82,6 +93,7 @@ import {
 import dbFieldTypes from "./DbFieldTypes";
 import MDIcon from "./MDIcon";
 import { mapState } from 'vuex';
+import { populateModel, browseModel } from '../../../services/API';
 
 export default {
   name: "ModelDetail",
@@ -108,7 +120,10 @@ export default {
   data() {
     return {
       name: "",
-      fields: []
+      fields: [],
+      records: [],
+      populating: false,
+      fetchingRecords: false,
     };
   },
   computed: {
@@ -129,13 +144,22 @@ export default {
         field.typeLabel = typeMap[field.type];
         return field;
       });
+
+      this.fetchRecords();
     }
   },
   methods: {
-    populate(){
-      axios.get(`model/${this.name}/populate`)
-        .then(({data}) => console.log("Populate res: ", data))
-        .catch(error => console.log("Populate error: ", error));
+    async fetchRecords(){
+      this.fetchingRecords = true;
+      const res = await browseModel(this.name);
+      this.records = res;
+      this.fetchingRecords = false;
+    },
+    async populate(){
+      this.populating = true;
+      const res = await populateModel(this.name);
+      this.records = res;
+      this.populating = false;
     },
   },
   components: {
