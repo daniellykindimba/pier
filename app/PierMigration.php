@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use Faker\Factory as Faker;
 
 class PierMigration extends Model{
     protected $fillable = [
@@ -18,6 +19,22 @@ class PierMigration extends Model{
     static function describe($model){
         $model_name = self::pascal_to_sentence($model);
         return PierMigration::where("name", $model_name)->first();
+    }
+    
+    static function populate($model){
+        $table_name = Str::snake($model);
+        $model_name = self::pascal_to_sentence($model);
+        $model = PierMigration::where("name", $model_name)->first();
+        $fields = json_decode($model->fields);
+        $pierModel = new \stdClass();
+        foreach($fields as $field) {
+            $label = $field->label;
+            $type = $field->type;
+
+            $pierModel->{$label} = self::field_generator($type);
+        };
+
+        return $pierModel;
     }
 
     static function record($model, $fields){
@@ -57,6 +74,57 @@ class PierMigration extends Model{
         return trim(implode(" ", $words_capitalized));
     }
 
+    static private function field_generator($type){
+        $faker = Faker::create();
+
+        switch ($type) {
+            case 'name':
+                return $faker->name;
+
+            case 'email':
+                return $faker->unique()->safeEmail;
+
+            case 'password':
+                return $faker->password();
+                
+            case 'phone':
+                return $faker->phoneNumber;
+
+            case 'image':
+                return $faker->imageUrl();
+                
+            case 'video':
+                return $faker->link;
+                
+            case 'file':
+                return $faker->file();
+                
+            case 'link':
+                return $faker->url;
+                
+            case 'location':
+                return $faker->streetAddress;
+                
+            case 'long text':
+                return $faker->paragraph;
+                
+            case 'string':
+                return $faker->sentence($nbWords = 3, $variableNbWords = true);
+                
+            case 'number':
+                return $faker->numberBetween(13, 237);
+                
+            case 'boolean':
+                return $faker->randomElement($array = array (0,1));
+                
+            case 'date':
+                return $faker->dateTimeBetween($startDate = 'now', $endDate = '+3 months', $timezone = null);
+            
+            default:
+                return "";
+        }
+    }
+    
     static private function field_type_map(Blueprint $table, $field, $type, $nullable = false){
         $processed = null;
 

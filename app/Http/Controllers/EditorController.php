@@ -21,7 +21,7 @@ class EditorController extends Controller
     }
     
     public function populate($model){
-        $res = PierMigration::describe($model);
+        $res = PierMigration::populate($model);
         return response()->json($res);
     }
 }
