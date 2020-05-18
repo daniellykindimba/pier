@@ -21,11 +21,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::prefix('editor')->group(function () {
-    Route::post('{model}', 'EditorController@create');
-    // Route::get('{model}', 'EditorController@create');
+Route::prefix('model')->group(function () {
+    Route::post('/', 'EditorController@create');
+    Route::get('/', 'EditorController@list');
+    Route::get('{model_name}/populate', 'EditorController@populate');
 });
-
-Route::get('describe/{table}', 'EditorController@describe');
-
-Route::get('list/{model?}', 'EditorController@list');

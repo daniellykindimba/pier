@@ -9,8 +9,11 @@ use Illuminate\Support\Str;
 
 class PierMigration extends Model{
     protected $fillable = [
-        'name', 'fields'
+        '_id', 'name', 'fields'
     ];
+
+    protected $primaryKey = '_id';
+    public $incrementing = false;
 
     static function describe($model){
         $model_name = self::pascal_to_sentence($model);
@@ -21,9 +24,13 @@ class PierMigration extends Model{
         $table_name = Str::snake($model);
         $model_name = self::pascal_to_sentence($model);
 
-        $modelEntry = ["name" => $model_name, "fields" => $fields->toJson()];
+        $modelEntry = [
+            "_id" => UUID::v4(),
+            "name" => $model_name, 
+            "fields" => $fields->toJson()
+        ];
 
-        PierMigration::create($modelEntry);
+        $pierModel = PierMigration::create($modelEntry);
         
         Schema::create($table_name, function (Blueprint $table) use($fields){
             $table->uuid("_id");
@@ -39,6 +46,9 @@ class PierMigration extends Model{
             $table->timestamps();
             $table->primary("_id");
         });
+        
+        // re-retrieve the instance to get all of the fields in the table.
+        return $pierModel->fresh();
     } 
       
     static private function pascal_to_sentence($string){
@@ -51,6 +61,22 @@ class PierMigration extends Model{
         $processed = null;
 
         switch ($type) {
+            case 'name':
+                $table->string($field);
+                break;
+
+            case 'email':
+                $table->string($field);
+                break;
+
+            case 'password':
+                $table->string($field);
+                break;
+                
+            case 'phone':
+                $table->string($field);
+                break;
+
             case 'image':
                 $table->text($field);
                 break;
@@ -64,6 +90,10 @@ class PierMigration extends Model{
                 break;
                 
             case 'link':
+                $table->text($field);
+                break;
+                
+            case 'location':
                 $table->text($field);
                 break;
                 

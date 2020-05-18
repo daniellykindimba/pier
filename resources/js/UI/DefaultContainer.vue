@@ -12,11 +12,11 @@
       </header>
 
       <div class="flex-1 bg-dark-400 overflow-auto">
-        <c-box px="6">
+        <!-- <c-box px="6">
           <c-text color="#888" px="6" py="3" fontSize="18px">
             {{ list }}
           </c-text>
-        </c-box>
+        </c-box> -->
 
         <c-dark-mode>
           <router-view />

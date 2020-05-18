@@ -14,11 +14,12 @@ class CreatePierMigrationsTable extends Migration
     public function up()
     {
         Schema::create('pier_migrations', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('_id');
             $table->string('name');
             $table->longText('fields');
             $table->boolean('migrated')->default(0);
             $table->timestamps();
+            $table->primary("_id");
         });
     }
 

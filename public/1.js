@@ -129,24 +129,7 @@ var render = function() {
         _c(
           "div",
           { staticClass: "flex-1 bg-dark-400 overflow-auto" },
-          [
-            _c(
-              "c-box",
-              { attrs: { px: "6" } },
-              [
-                _c(
-                  "c-text",
-                  {
-                    attrs: { color: "#888", px: "6", py: "3", fontSize: "18px" }
-                  },
-                  [_vm._v("\n          " + _vm._s(_vm.list) + "\n        ")]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("c-dark-mode", [_c("router-view")], 1)
-          ],
+          [_c("c-dark-mode", [_c("router-view")], 1)],
           1
         )
       ])

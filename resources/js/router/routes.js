@@ -1,30 +1,38 @@
 const DefaultContainer = () => import('../UI/DefaultContainer');
-const Editor = () => import('../UI/pages/Editor');
-const EditorList = () => import('../UI/pages/Editor/List');
-const EditorAdd = () => import('../UI/pages/Editor/Add');
+const Models = () => import('../UI/pages/Models');
+const ModelsList = () => import('../UI/pages/Models/List');
+const AddModel = () => import('../UI/pages/Models/Add');
+const ModelDetail = () => import('../UI/pages/Models/Detail');
 
 export default [
     {
         path: '/',
         name: 'Pier',
-        redirect: '/editor',
+        redirect: '/models',
         component: DefaultContainer,
         children: [
             {
-                path: 'editor',
-                name: 'Editor',
-                component: Editor,
-                redirect: '/editor/list',
+                path: 'models',
+                name: 'Models',
+                component: Models,
+                // redirect: '/models/list',
                 children: [
                     {
-                        path: 'list',
-                        name: 'EditorList',
-                        component: EditorList
+                        // path: 'list',
+                        path: '/',
+                        name: 'ModelsList',
+                        component: ModelsList
                     },
                     {
                         path: 'add',
-                        name: 'EditorAdd',
-                        component: EditorAdd
+                        name: 'AddModel',
+                        component: AddModel
+                    },
+                    {
+                        path: ':modelId/details',
+                        name: 'Model Details',
+                        component: ModelDetail,
+                        props: true
                     }
                 ]
             }
