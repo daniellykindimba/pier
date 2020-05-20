@@ -1,58 +1,72 @@
 export default [
     {
       label: 'Name',
-      value: 'name'
+      value: 'name',
+      placeholder: 'E.g. full_name'
     },
     {
       label: 'Email',
-      value: 'email'
+      value: 'email',
+      placeholder: 'E.g. email'
     },
     {
       label: 'Password',
-      value: 'password'
+      value: 'password',
+      placeholder: 'E.g. password'
     },
     {
       label: 'Phone',
-      value: 'phone'
+      value: 'phone',
+      placeholder: 'E.g. phoneNo'
     },
     {
       label: 'Date',
-      value: 'date'
+      value: 'date',
+      placeholder: 'E.g. dob'
     },
     {
       label: 'Short Text',
-      value: 'string'
+      value: 'string',
+      placeholder: 'E.g. genre'
     },
     {
       label: 'Long Text',
-      value: 'long text'
+      value: 'long text',
+      placeholder: 'E.g. description'
     },
     {
       label: 'Number',
-      value: 'number'
+      value: 'number',
+      placeholder: 'E.g. rating'
     },
     {
       label: 'Image',
-      value: 'image'
+      value: 'image',
+      placeholder: 'E.g. profile_picture'
     },
     {
       label: 'Video',
-      value: 'video'
+      value: 'video',
+      placeholder: 'E.g. youtube_url'
     },
     {
       label: 'File',
-      value: 'file'
+      value: 'file',
+      placeholder: 'E.g. attachment'
     },
     {
       label: 'Link',
-      value: 'link'
+      value: 'link',
+      placeholder: 'E.g. rsvp_link'
     },
     {
       label: 'Location',
-      value: 'location'
+      value: 'location',
+      placeholder: 'E.g. location'
     },
     {
       label: 'Switch',
-      value: 'boolean'
+      value: 'boolean',
+      placeholder: 'E.g. in_stock'
     }
 ];
