@@ -344,7 +344,7 @@ var render = function() {
                               [
                                 _vm._v(
                                   "\n              " +
-                                    _vm._s(JSON.parse(model.fields).length) +
+                                    _vm._s(model.fields.length) +
                                     " fields\n            "
                                 )
                               ]

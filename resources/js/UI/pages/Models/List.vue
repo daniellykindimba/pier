@@ -50,7 +50,7 @@
                 {{ model.name }}
               </c-text>
               <c-text mb="2" fontSize="xl" color="#ccc">
-                {{ JSON.parse(model.fields).length }} fields
+                {{ model.fields.length }} fields
               </c-text>
             </c-box>
           </c-box>

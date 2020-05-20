@@ -6,7 +6,11 @@ export const getModels = async ({ commit }) => {
     commit('FETCHING_MODELS', true);
 
     try {
-        const models = await fetchModels();
+        const res = await fetchModels();
+        const models = res.map(model => {
+            model.fields = JSON.parse(model.fields);
+            return model;
+        });
         commit('FETCHING_MODELS', false);
         commit('SET_MODELS', models);
     } catch (error) {
@@ -30,6 +34,8 @@ export const createModel = async ({ commit, state }, data) => {
     commit('SAVING_MODEL', true);
     try {
         const model = await insertModel(data);
+        model.fields = JSON.parse(model.fields);
+        
         commit('SAVING_MODEL', false);
 
         let models = state.models;

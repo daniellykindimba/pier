@@ -154,7 +154,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         typeMap[value] = label;
       });
       this.name = model.name;
-      this.fields = JSON.parse(model.fields).map(function (field) {
+      this.fields = model.fields.map(function (field) {
         field.typeLabel = typeMap[field.type];
         return field;
       });

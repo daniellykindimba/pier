@@ -24298,11 +24298,11 @@ var ModelsList = function ModelsList() {
 };
 
 var AddModel = function AddModel() {
-  return Promise.all(/*! import() */[__webpack_require__.e(6), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Add */ "./resources/js/UI/pages/Models/Add.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Add */ "./resources/js/UI/pages/Models/Add.vue"));
 };
 
 var ModelDetail = function ModelDetail() {
-  return Promise.all(/*! import() */[__webpack_require__.e(6), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Detail */ "./resources/js/UI/pages/Models/Detail.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Detail */ "./resources/js/UI/pages/Models/Detail.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ([{
@@ -24795,7 +24795,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var getModels = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
-    var commit, models;
+    var commit, res, models;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -24807,24 +24807,28 @@ var getModels = /*#__PURE__*/function () {
             return Object(_services_API__WEBPACK_IMPORTED_MODULE_2__["fetchModels"])();
 
           case 5:
-            models = _context.sent;
+            res = _context.sent;
+            models = res.map(function (model) {
+              model.fields = JSON.parse(model.fields);
+              return model;
+            });
             commit('FETCHING_MODELS', false);
             commit('SET_MODELS', models);
-            _context.next = 14;
+            _context.next = 15;
             break;
 
-          case 10:
-            _context.prev = 10;
+          case 11:
+            _context.prev = 11;
             _context.t0 = _context["catch"](2);
             commit('FETCHING_MODELS', false);
             Object(_utils__WEBPACK_IMPORTED_MODULE_1__["handleNetworkError"])(_context.t0, "Error fetching models:");
 
-          case 14:
+          case 15:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[2, 10]]);
+    }, _callee, null, [[2, 11]]);
   }));
 
   return function getModels(_x) {
@@ -24857,6 +24861,7 @@ var createModel = /*#__PURE__*/function () {
 
           case 5:
             model = _context2.sent;
+            model.fields = JSON.parse(model.fields);
             commit('SAVING_MODEL', false);
             models = state.models;
             if (!models) models = [];
@@ -24864,21 +24869,21 @@ var createModel = /*#__PURE__*/function () {
             commit('SET_MODELS', models);
             _router__WEBPACK_IMPORTED_MODULE_3__["default"].replace("/models/".concat(model._id, "/details"));
             Object(_utils__WEBPACK_IMPORTED_MODULE_1__["showSuccessToast"])("Model created");
-            _context2.next = 19;
+            _context2.next = 20;
             break;
 
-          case 15:
-            _context2.prev = 15;
+          case 16:
+            _context2.prev = 16;
             _context2.t0 = _context2["catch"](2);
             Object(_utils__WEBPACK_IMPORTED_MODULE_1__["handleNetworkError"])(_context2.t0, "Error creating model:");
             commit('SAVING_MODEL', false);
 
-          case 19:
+          case 20:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[2, 15]]);
+    }, _callee2, null, [[2, 16]]);
   }));
 
   return function createModel(_x2, _x3) {

@@ -140,7 +140,7 @@ export default {
       });
 
       this.name = model.name;
-      this.fields = JSON.parse(model.fields).map(field => {
+      this.fields = model.fields.map(field => {
         field.typeLabel = typeMap[field.type];
         return field;
       });
