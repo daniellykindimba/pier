@@ -1203,7 +1203,7 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("\n              Change\n          ")]
+                            [_vm._v("\n              Edit\n          ")]
                           ),
                           _vm._v(" "),
                           _c(

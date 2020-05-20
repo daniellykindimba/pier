@@ -101,7 +101,7 @@
               color="#777"
               @click="$emit('selectField')"
             >
-                Change
+                Edit
             </c-button>
 
             <c-button size="sm" variant="ghost" color="red.200" 
