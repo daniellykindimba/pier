@@ -28,21 +28,12 @@
         <c-stack spacing="3" color="#999">
           <c-box />
           <template v-for="(field, index) in fields">
-            <c-box :key="index" rounded="md" color="#777" px="4" py="3" background="#222">
-              <c-box mb="1" d="flex" align-items="center" justify-content="space-between">
-                <c-box d="flex" align-items="center">
-                  <c-box mr="3">
-                    <MDIcon :icon="field.type" :size="20" />
-                  </c-box>
-
-                  <c-text fontSize="xl" color="#999">
-                    {{ field.label }}
-                  </c-text>
-                </c-box>
-                <c-text fontSize="lg" color="#777">
-                  {{ field.typeLabel }}
-                </c-text>
-              </c-box>
+            <c-box :key="index">
+              <PierModelField
+                :icon="field.type"
+                :label="field.label"
+                :type="field.typeLabel"
+              />
             </c-box>
           </template>
         </c-stack>
@@ -92,6 +83,7 @@ import {
 
 import dbFieldTypes from "./DbFieldTypes";
 import MDIcon from "./components/MDIcon";
+import PierModelField from "./components/PierModelField";
 import { mapState } from 'vuex';
 import { populateModel, browseModel } from '../../../services/API';
 
@@ -169,7 +161,8 @@ export default {
     CIcon, 
     CStack,
     CCircularProgress, CCircularProgressLabel,
-    MDIcon
+    MDIcon,
+    PierModelField
   }
 };
 </script>

@@ -68,6 +68,7 @@
 
           <c-box v-if="selected" d="flex" align-items="center">
             <c-button
+              v-if="!editing"
               size="sm"
               align-self="flex-start"
               :variant="field.type && field.type.label ? 'outline' : 'ghost'"
@@ -114,19 +115,28 @@
         <template v-if="selected">
           <c-box my="3">
             <div style="color:#999">
-            <form action="#" 
-                @submit.prevent="field.label.length ? $emit('cancelAddField') : null">
-              <c-form-control v-if="field.type && field.type.value">
-                <c-form-label color="#777" fontSize="lg" for="fieldLabel">Field Label</c-form-label>
-                <c-input
-                  id="fieldLabel"
-                  type="text"
-                  :placeholder="field.type ? field.type.placeholder : 'E.g description'"
-                  size="md"
-                  v-model="field.label"
-                />
-              </c-form-control>
-            </form>
+              <form v-if="field.type && field.type.value" action="#" 
+                  @submit.prevent="field.label.length ? $emit('cancelAddField') : null">
+                <c-form-control mb="6">
+                  <c-form-label color="#777" fontSize="lg" for="fieldLabel">Field Label</c-form-label>
+                  <c-input
+                    id="fieldLabel"
+                    type="text"
+                    :placeholder="field.type ? field.type.placeholder : 'E.g description'"
+                    size="md"
+                    v-model="field.label"
+                  />
+                </c-form-control>
+
+                <c-form-control pl="1">
+                  <c-checkbox variant-color="orange" size="lg"
+                    :is-checked="field.required"
+                    @change="(_, $e) => field.required = $e.target.checked"
+                  >
+                    This field is required
+                  </c-checkbox>
+                </c-form-control>
+              </form>
 
               <c-form-control v-if="!field.type || !field.type.value">
                 <c-box mt="2">
@@ -163,9 +173,10 @@ import {
   CIcon,
   CStack,
   CFormControl,
-    CFormLabel,
-    CFormHelperText,
-    CInput,
+  CFormLabel,
+  CFormHelperText,
+  CInput,
+  CCheckbox,
 } from "@chakra-ui/vue";
 
 import dbFieldTypes from "../DbFieldTypes";
@@ -174,6 +185,7 @@ import MDIcon from "./MDIcon";
 export default {
   name: "PierEditableModelField",
   props: {
+    editing: Boolean, 
     selectable: Boolean, 
     selected: Boolean, 
     value: Object
@@ -198,19 +210,19 @@ export default {
   },
   watch: {
     selected(selectedStatus) {
-        if(selectedStatus)
-            this.focusLabelInput();
+      if(selectedStatus)
+        this.focusLabelInput();
     },
     field: function(newValue) {
-        this.$emit('input', newValue);
+      this.$emit('input', newValue);
     }
   },
   methods: {
     setFieldType(type) {
-    //   this.$set(this.field, "type", type); 
       this.field = {
         label: "",
-        type
+        type,
+        required: true
       };
       this.focusLabelInput();
     },
@@ -232,6 +244,7 @@ export default {
     CFormLabel,
     CFormHelperText,
     CInput,
+    CCheckbox,
   }
 };
 </script>

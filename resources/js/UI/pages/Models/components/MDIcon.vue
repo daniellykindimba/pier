@@ -18,6 +18,7 @@ import Location from 'vue-material-design-icons/MapMarker';
 
 import ArrowDown from 'vue-material-design-icons/ArrowDown';
 import Delete from 'vue-material-design-icons/Delete';
+import Add from 'vue-material-design-icons/Plus';
 
 export default {
     name: "MdICon",
@@ -30,6 +31,9 @@ export default {
     },
     render (h) {
         switch (this.icon) {
+            case 'add':
+                return <Add color="currentColor" size={this.size} />;
+                
             case 'down':
                 return <ArrowDown color="currentColor" size={this.size} />;
                 

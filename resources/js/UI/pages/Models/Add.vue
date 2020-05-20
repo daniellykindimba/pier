@@ -57,8 +57,7 @@
             <c-box d="flex" mb="1" mt="5" align-items="center" justify-content="space-between">
               <c-text fontSize="xl" htmlFor="label">Fields</c-text>
 
-              <c-button v-if="curFieldIndex === -1" 
-                :disabled="curFieldIndex !== -1"
+              <c-button v-if="curFieldIndex === -1"
                 alignSelf="center" variant="ghost" color="orange.200" @click="addField">
                 <c-box d="inline-flex" align-items="center">
                   <c-box mr="2" mb="1">
@@ -74,11 +73,22 @@
                 v-model="fields[index]"
                 :selectable="curFieldIndex === -1 || curFieldIndex === index"
                 :selected="curFieldIndex === index"
-                @select="curFieldIndex = index"
+                :editing="editing"
+                @selectField="curFieldIndex = index; editing = true"
                 @cancelAddField="cancelAddField"
                 @removeField="removeField"
               />
             </template>
+
+            <button v-if="curFieldIndex === -1" 
+              style="width: 100%; border: none; background: transparent; outline: none"
+              @click="addField">
+              <PierModelField
+                color="#c09669"
+                icon="add"
+                label="add field"
+              />
+            </button>
           </c-box>
         </c-box>
       </c-box>
@@ -103,6 +113,7 @@ import {
 
 import dbFieldTypes from "./DbFieldTypes";
 import PierEditableModelField from "./components/PierEditableModelField";
+import PierModelField from "./components/PierModelField";
 import { mapState } from 'vuex';
 
 export default {
@@ -140,12 +151,13 @@ export default {
     saveModel() {
       const data = {
         name: this.name.replace(/ /g,""),
-        fields: this.fields.map(({label, type}) => ({label, type: type.value}))
+        fields: this.fields.map(field => ({...field, type: field.type.value}))
       }
 
       this.$store.dispatch('createModel', data);
     },
     addField() {
+      this.editing = false;
       this.fields.push({
         label: "",
         type: {}
@@ -165,7 +177,8 @@ export default {
     CFormLabel,
     CFormHelperText,
     CInput,
-    PierEditableModelField
+    PierEditableModelField,
+    PierModelField
   }
 };
 </script>

@@ -38,6 +38,7 @@ class PierMigration extends Model{
         })->toArray();
 
         $images = null;
+        $videos = null;
 
         if(in_array("image", $types)){
             try {
@@ -47,10 +48,19 @@ class PierMigration extends Model{
                 })->toArray();
             } catch (\Throwable $th) {}
         }
+        
+        if(in_array("video", $types)){
+            try {
+                $response = Http::withoutVerifying()->get("https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&q=beautiful&type=video&videoEmbeddable=true&fields=items(id)&key=AIzaSyA_Rg25Nc3IbNh3OBP6KkeHXinC9T3ajyw");
+                $videos = collect($response->offsetGet('items'))->map(function($video){
+                    return "https://www.youtube.com/watch?v=".$video['id']['videoId'];
+                })->toArray();
+            } catch (\Throwable $th) {}
+        }
 
         $entries = [];
         for ($i=0; $i < 25; $i++) { 
-            $entry = self::populateRow($fields, $images);
+            $entry = self::populateRow($fields, $images, $videos);
             DB::table($table_name)->insert($entry);
             $entries[] = $entry;
         }
@@ -58,7 +68,7 @@ class PierMigration extends Model{
         return $entries;
     }
 
-    static function populateRow($fields, $images){
+    static function populateRow($fields, $images, $videos){
         $pierModel = [];
         $pierModel['_id'] = UUID::v4();
         $pierModel['created_at'] = now();
@@ -70,6 +80,11 @@ class PierMigration extends Model{
 
             if($type == "image" && is_array($images) && count($images) > 0)
                 $pierModel[$label] = $images[array_rand($images, 1)];
+            else
+                $pierModel[$label] = self::field_generator($type);
+                
+            if($type == "video" && is_array($videos) && count($videos) > 0)
+                $pierModel[$label] = $videos[array_rand($videos, 1)];
             else
                 $pierModel[$label] = self::field_generator($type);
         };
@@ -95,7 +110,7 @@ class PierMigration extends Model{
             foreach($fields as $field) {
                 $label = $field['label'];
                 $type = $field['type'];
-                $nullable = isset($field['nullable']) ?: false;
+                $nullable = !$field['required'];
     
                 self::field_type_map($table, $label, $type, $nullable);
             };
@@ -134,7 +149,7 @@ class PierMigration extends Model{
                 return $faker->imageUrl();
                 
             case 'video':
-                return $faker->link;
+                return $faker->url;
                 
             case 'file':
                 return $faker->file();
@@ -165,64 +180,64 @@ class PierMigration extends Model{
         }
     }
     
-    static private function field_type_map(Blueprint $table, $field, $type, $nullable = false){
+    static private function field_type_map(Blueprint $table, $field, $type, $nullable){
         $processed = null;
 
         switch ($type) {
             case 'name':
-                $table->string($field);
+                $processed = $table->string($field);
                 break;
 
             case 'email':
-                $table->string($field);
+                $processed = $table->string($field);
                 break;
 
             case 'password':
-                $table->string($field);
+                $processed = $table->string($field);
                 break;
                 
             case 'phone':
-                $table->string($field);
+                $processed = $table->string($field);
                 break;
 
             case 'image':
-                $table->text($field);
+                $processed = $table->text($field);
                 break;
                 
             case 'video':
-                $table->text($field);
+                $processed = $table->text($field);
                 break;
                 
             case 'file':
-                $table->text($field);
+                $processed = $table->text($field);
                 break;
                 
             case 'link':
-                $table->text($field);
+                $processed = $table->text($field);
                 break;
                 
             case 'location':
-                $table->text($field);
+                $processed = $table->text($field);
                 break;
                 
             case 'long text':
-                $table->longText($field);
+                $processed = $table->longText($field);
                 break;
                 
             case 'string':
-                $table->string($field);
+                $processed = $table->string($field);
                 break;
                 
             case 'number':
-                $table->bigInteger($field);
+                $processed = $table->bigInteger($field);
                 break;
                 
             case 'boolean':
-                $table->boolean($field)->default(0);
+                $processed = $table->boolean($field)->default(0);
                 break;
                 
             case 'date':
-                $table->timestamp($field);
+                $processed = $table->timestamp($field);
                 break;
             
             default:
