@@ -24298,11 +24298,11 @@ var ModelsList = function ModelsList() {
 };
 
 var AddModel = function AddModel() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Add */ "./resources/js/UI/pages/Models/Add.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(6), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Add */ "./resources/js/UI/pages/Models/Add.vue"));
 };
 
 var ModelDetail = function ModelDetail() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Detail */ "./resources/js/UI/pages/Models/Detail.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(6), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Detail */ "./resources/js/UI/pages/Models/Detail.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ([{

@@ -1,8 +1,4 @@
 <style>
-.fieldItem:not(:hover) .fieldActionButtons{
-  display: none;
-}
-
 [data-chakra-component="CInput"]{
   color: #999;
   outline-color: #555;
@@ -15,46 +11,6 @@
 
 [data-chakra-component="CInput"]::placeholder{
   color: #6a6a6a;
-}
-
-#fieldTypeOptions{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 0.8rem;
-  /* margin-top: -2rem; */
-  user-select: none;
-}
-.action-label{
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0.8rem;
-  border: 1px solid #555;
-  border-radius: 5px;
-  width: auto;
-  cursor: pointer;
-  color: #777;
-  font-size: 0.8rem;
-  text-transform: capitalize;
-}
-.action-label.active{
-  border-color: #8c6d52;
-  background: #28231f;
-  color: #ffba7f;
-}
-
-.action-label svg{
-  display: inline-block;
-  margin-bottom: 0.2rem;
-}
-
-.action-label span:last-child{
-  display: block;
-  width: 100%;
-}
-
-.action-label input{
-  display: none !important
 }
 </style>
 <template>
@@ -88,7 +44,7 @@
             </c-stack>
           </c-box>
 
-          <c-stack spacing="5" color="#999">
+          <c-box spacing="5" color="#999">
             <c-form-control>
               <c-form-label fontSize="xl" htmlFor="modelName">Model Name</c-form-label>
               <c-input id="modelName" type="text" placeholder="E.g Article" size="lg" v-model="name" />
@@ -98,7 +54,7 @@
               </c-form-helper-text>
             </c-form-control>
             
-            <c-box d="flex" mb="0" align-items="center" justify-content="space-between">
+            <c-box d="flex" mb="1" mt="5" align-items="center" justify-content="space-between">
               <c-text fontSize="xl" htmlFor="label">Fields</c-text>
 
               <c-button v-if="curFieldIndex === -1" 
@@ -114,95 +70,16 @@
             </c-box>
 
             <template v-for="(field, index) in fields">
-              <c-pseudo-box role="group" :key="index" mb="0"
-                :pointerEvents="curFieldIndex !== -1 && curFieldIndex !== index ? 'none' : 'auto'">
-                <div style="margin-bottom: -0.6rem">
-                  <c-box rounded="md" color="#777" px="4" py="3" background="#222">
-                    <c-box mb="1" d="flex" align-items="center" justify-content="space-between">
-                      <c-box d="flex" align-items="center">
-                        <c-box mr="3">
-                          <MDIcon :icon="field.type.value ? field.type.value : 'down'" 
-                            :size="20" />
-                        </c-box>
-
-                        <c-text fontSize="xl" color="#999">
-                          <span v-if="!field.type.label">
-                            Pick field type
-                          </span>
-                          <span v-else>
-                            {{ field.label || 'New Field'}}
-                          </span>
-                        </c-text>
-                        &nbsp; 
-                        <c-text fontSize="md" color="#777" v-if="field.type.label">( {{ field.type.label.toLowerCase() }} )</c-text>
-                      </c-box>
-
-                      <template v-if="curFieldIndex === index">
-                        <c-button size="sm" v-if="!fields[curFieldIndex].type.label" align-self="flex-start" variant="ghost" color="#777" 
-                          @click="removeField(index)">
-                          <c-icon name="close" size="11px" mr="3" /> Cancel
-                        </c-button>
-
-                        <c-stack v-else isInline spacing="3">
-                          <c-button size="sm" variant="outline" color="#777" 
-                            @click="editing ? cancelAddField() : removeField(index)">
-                            Cancel
-                          </c-button>
-
-                          <c-button size="sm" :disabled="!fields[curFieldIndex].label || !fields[curFieldIndex].type.label"
-                            px="4" variant-color="orange"
-                            @click="cancelAddField">
-                            Done
-                          </c-button>
-                        </c-stack>
-                      </template>
-
-                      <c-pseudo-box v-else opacity="0" pointerEvents="none" 
-                        :_groupHover="{ opacity: 1, pointerEvents: 'auto'}">
-                        <c-button size="sm" variant="ghost" color="#777" 
-                          @click="curFieldIndex === -1 ? editField(index) : null">
-                          Change
-                        </c-button>
-
-                        <c-button size="sm" variant="ghost" color="red.200" @click="removeField(index)">
-                          Delete
-                        </c-button>
-                      </c-pseudo-box>
-                    </c-box>
-
-                    <template v-if="curFieldIndex === index">
-                      <c-box my="3">
-                        <c-stack spacing="6" color="#999">
-                          <c-form-control v-if="fields[curFieldIndex].type.value">
-                            <c-form-label color="#777" fontSize="lg" htmlFor="fieldLabel">Field Label</c-form-label>
-                            <c-input id="fieldLabel" type="text" placeholder="E.g description" size="md"
-                              v-model="fields[curFieldIndex].label" />
-                          </c-form-control>
-                          
-                          <c-form-control v-if="!fields[curFieldIndex].type.value">
-                            <c-box mt="2">
-                              <div id="fieldTypeOptions">
-                                <template v-for="(type, index) in dbFieldTypes">
-                                  <label :key="index" 
-                                    :for="`dbFieldtype${type.value}`" 
-                                    class="action-label text-center"
-                                    :class="{'active' : fields[curFieldIndex].type.value === type.value}"
-                                    @click="fields[curFieldIndex].type = type; focusLabelInput()">
-                                      <MDIcon :icon="type.value" :size="32" />
-                                      <span>{{type.label}}</span>
-                                  </label>
-                                </template>
-                              </div>
-                            </c-box>
-                          </c-form-control>
-                        </c-stack>
-                      </c-box>
-                    </template>
-                  </c-box>
-                </div>
-              </c-pseudo-box>
+              <PierEditableModelField :key="index"
+                v-model="fields[index]"
+                :selectable="curFieldIndex === -1 || curFieldIndex === index"
+                :selected="curFieldIndex === index"
+                @select="curFieldIndex = index"
+                @cancelAddField="cancelAddField"
+                @removeField="removeField"
+              />
             </template>
-          </c-stack>
+          </c-box>
         </c-box>
       </c-box>
     </c-box>
@@ -225,7 +102,7 @@ import {
 } from '@chakra-ui/vue';
 
 import dbFieldTypes from "./DbFieldTypes";
-import MDIcon from "./MDIcon";
+import PierEditableModelField from "./components/PierEditableModelField";
 import { mapState } from 'vuex';
 
 export default {
@@ -269,23 +146,12 @@ export default {
       this.$store.dispatch('createModel', data);
     },
     addField() {
-      this.editing = false;
       this.fields.push({
         label: "",
         type: {}
       });
 
       this.curFieldIndex = this.fields.length - 1;
-    },
-    editField(index) {
-      this.editing = true;
-      this.curFieldIndex = index;
-      this.focusLabelInput();
-    },
-    focusLabelInput(index) {
-      this.$nextTick(() => {
-        this.$el.querySelector("#fieldLabel").focus();
-      })
     }
   },
   components: {
@@ -299,7 +165,7 @@ export default {
     CFormLabel,
     CFormHelperText,
     CInput,
-    MDIcon
+    PierEditableModelField
   }
 };
 </script>

@@ -91,7 +91,7 @@ import {
 } from '@chakra-ui/vue';
 
 import dbFieldTypes from "./DbFieldTypes";
-import MDIcon from "./MDIcon";
+import MDIcon from "./components/MDIcon";
 import { mapState } from 'vuex';
 import { populateModel, browseModel } from '../../../services/API';
 
