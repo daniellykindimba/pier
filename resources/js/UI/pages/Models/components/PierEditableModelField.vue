@@ -128,14 +128,22 @@
                   />
                 </c-form-control>
 
-                <c-form-control pl="1">
-                  <c-checkbox variant-color="orange" size="lg"
-                    :is-checked="field.required"
-                    @change="(_, $e) => field.required = $e.target.checked"
-                  >
-                    This field is required
-                  </c-checkbox>
+                <c-form-control mb="6">
+                    <c-switch id="required" mr="2"
+                      color="orange" size="md"
+                      v-model="field.required"
+                    />
+
+                    <c-form-label html-for="required">
+                      This field is required
+                    </c-form-label>
                 </c-form-control>
+
+                <PierModelFieldOption
+                  v-for="(option, key) in fieldOptions" :key="key"
+                  :option="option"
+                  v-model="field.meta[key]"
+                />
               </form>
 
               <c-form-control v-if="!field.type || !field.type.value">
@@ -177,10 +185,12 @@ import {
   CFormHelperText,
   CInput,
   CCheckbox,
+  CSwitch,
 } from "@chakra-ui/vue";
 
 import dbFieldTypes from "../DbFieldTypes";
 import MDIcon from "./MDIcon";
+import PierModelFieldOption from "./PierModelFieldOption";
 
 export default {
   name: "PierEditableModelField",
@@ -202,9 +212,11 @@ export default {
   data() {
     return {
       dbFieldTypes,
+      fieldOptions: {},
       field: {
         label: "",
-        type: {}
+        type: {},
+        meta: {}
       }
     };
   },
@@ -222,14 +234,20 @@ export default {
       this.field = {
         label: "",
         type,
-        required: true
+        required: true,
+        meta: {}
       };
       this.focusLabelInput();
+      this.fieldOptions = type.options;
     },
     focusLabelInput() {
       this.$nextTick(() => {
         this.$el.querySelector("#fieldLabel").focus();
       })
+    },
+    requireChanged($e){
+      // field.required = $e.target.checked; 
+      console.log('Switch changed: ', $e)
     }
   },
   components: {
@@ -245,6 +263,8 @@ export default {
     CFormHelperText,
     CInput,
     CCheckbox,
+    CSwitch,
+    PierModelFieldOption
   }
 };
 </script>

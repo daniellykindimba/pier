@@ -24286,23 +24286,23 @@ var router = createRouter();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var DefaultContainer = function DefaultContainer() {
-  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../UI/DefaultContainer */ "./resources/js/UI/DefaultContainer.vue"));
+  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../UI/DefaultContainer */ "./resources/js/UI/DefaultContainer.vue"));
 };
 
 var Models = function Models() {
-  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../UI/pages/Models */ "./resources/js/UI/pages/Models/index.vue"));
+  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../UI/pages/Models */ "./resources/js/UI/pages/Models/index.vue"));
 };
 
 var ModelsList = function ModelsList() {
-  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/List */ "./resources/js/UI/pages/Models/List.vue"));
+  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/List */ "./resources/js/UI/pages/Models/List.vue"));
 };
 
 var AddModel = function AddModel() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Add */ "./resources/js/UI/pages/Models/Add.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Add */ "./resources/js/UI/pages/Models/Add.vue"));
 };
 
 var ModelDetail = function ModelDetail() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Detail */ "./resources/js/UI/pages/Models/Detail.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Detail */ "./resources/js/UI/pages/Models/Detail.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ([{

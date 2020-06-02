@@ -151,7 +151,15 @@ export default {
     saveModel() {
       const data = {
         name: this.name.replace(/ /g,""),
-        fields: this.fields.map(field => ({...field, type: field.type.value}))
+        fields: this.fields.map(field => {
+          if(!Object.keys(field.meta).length)
+            delete field.meta;
+
+          return {
+            ...field,
+            type: field.type.value,
+          }
+        })
       }
 
       this.$store.dispatch('createModel', data);

@@ -19,13 +19,13 @@ class EditorController extends Controller
         return response()->json($res);
     }
     
-    public function populate($model){
-        $res = PierMigration::populate($model);
+    public function populate($modelId){
+        $res = PierMigration::populate($modelId);
         return response()->json($res);
     }
     
-    public function browse($model){
-        $res = PierMigration::browse($model);
+    public function browse($modelId){
+        $res = PierMigration::browse($modelId);
         return response()->json($res);
     }
 }

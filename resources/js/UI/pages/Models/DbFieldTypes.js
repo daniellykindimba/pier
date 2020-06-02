@@ -42,7 +42,14 @@ export default [
     {
       label: 'Image',
       value: 'image',
-      placeholder: 'E.g. profile_picture'
+      placeholder: 'E.g. profile_picture',
+      options: {
+        face: {
+          label: "Is a picture of person",
+          type: Boolean,
+          defaultValue: false
+        }
+      }
     },
     {
       label: 'Video',
