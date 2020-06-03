@@ -75,5 +75,18 @@ export default [
       label: 'Switch',
       value: 'boolean',
       placeholder: 'E.g. in_stock'
+    },
+    {
+      label: 'Rating',
+      value: 'rating',
+      placeholder: 'E.g. rating',
+      options: {
+        outOf: {
+          label: "Rating out of",
+          type: "choice",
+          choices: ["5", "10"],
+          defaultValue: "5"
+        }
+      }
     }
 ];

@@ -121,8 +121,11 @@ class PierMigration extends Model{
             }
             else if($type == "video" && is_array($videos) && count($videos) > 0)
                 $pierModel[$label] = $videos[array_rand($videos, 1)];
-            else
-                $pierModel[$label] = self::field_generator($type);
+            else{
+                $meta = isset($field->meta) ? $field->meta : null;
+                $pierModel[$label] = self::field_generator($type, $meta);
+            }
+                
         };
 
         return $pierModel;
@@ -165,7 +168,7 @@ class PierMigration extends Model{
         return trim(implode(" ", $words_capitalized));
     }
 
-    static private function field_generator($type){
+    static private function field_generator($type, $meta = null){
         $faker = Faker::create();
 
         switch ($type) {
@@ -204,6 +207,9 @@ class PierMigration extends Model{
                 
             case 'number':
                 return $faker->numberBetween(13, 237);
+                
+            case 'rating':
+                return $faker->numberBetween(1, $meta->outOf);
                 
             case 'boolean':
                 return $faker->randomElement(array (0,1));
@@ -266,6 +272,10 @@ class PierMigration extends Model{
                 
             case 'number':
                 $processed = $table->bigInteger($field);
+                break;
+                
+            case 'rating':
+                $processed = $table->integer($field);
                 break;
                 
             case 'boolean':

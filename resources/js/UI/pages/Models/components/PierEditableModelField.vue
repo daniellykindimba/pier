@@ -128,6 +128,12 @@
                   />
                 </c-form-control>
 
+                <PierModelFieldOption
+                  v-for="(option, key) in fieldOptions" :key="key"
+                  :option="option"
+                  v-model="field.meta[key]"
+                />
+
                 <c-form-control mb="6">
                     <c-switch id="required" mr="2"
                       color="orange" size="md"
@@ -138,12 +144,6 @@
                       This field is required
                     </c-form-label>
                 </c-form-control>
-
-                <PierModelFieldOption
-                  v-for="(option, key) in fieldOptions" :key="key"
-                  :option="option"
-                  v-model="field.meta[key]"
-                />
               </form>
 
               <c-form-control v-if="!field.type || !field.type.value">

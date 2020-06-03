@@ -465,10 +465,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/index.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/UI/pages/Models/components/PierModelFieldOption/index.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -490,7 +490,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "PierModelFieldOption",
+  name: "PierBooleanField",
   props: {
     option: Object,
     value: Object | String | Boolean
@@ -515,6 +515,180 @@ __webpack_require__.r(__webpack_exports__);
     CFormControl: _chakra_ui_vue__WEBPACK_IMPORTED_MODULE_0__["CFormControl"],
     CFormLabel: _chakra_ui_vue__WEBPACK_IMPORTED_MODULE_0__["CFormLabel"],
     CSwitch: _chakra_ui_vue__WEBPACK_IMPORTED_MODULE_0__["CSwitch"]
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _chakra_ui_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @chakra-ui/vue */ "./node_modules/@chakra-ui/vue/dist/esm/index.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "PierChoicesField",
+  props: {
+    option: Object,
+    value: Object | String | Boolean
+  },
+  mounted: function mounted() {
+    if (this.option) {
+      var defaultValue = this.option.defaultValue;
+      if (defaultValue !== undefined) this.val = defaultValue;
+    }
+  },
+  data: function data() {
+    return {
+      val: ""
+    };
+  },
+  watch: {
+    val: function val(newValue) {
+      this.$emit('input', newValue);
+    }
+  },
+  components: {
+    CFormControl: _chakra_ui_vue__WEBPACK_IMPORTED_MODULE_0__["CFormControl"],
+    CFormLabel: _chakra_ui_vue__WEBPACK_IMPORTED_MODULE_0__["CFormLabel"],
+    CSelect: _chakra_ui_vue__WEBPACK_IMPORTED_MODULE_0__["CSelect"]
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _chakra_ui_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @chakra-ui/vue */ "./node_modules/@chakra-ui/vue/dist/esm/index.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "PierTextField",
+  props: {
+    option: Object,
+    value: Object | String | Boolean
+  },
+  mounted: function mounted() {
+    if (this.option) {
+      var defaultValue = this.option.defaultValue;
+      if (defaultValue !== undefined) this.val = defaultValue;
+    }
+  },
+  data: function data() {
+    return {
+      val: ""
+    };
+  },
+  watch: {
+    val: function val(newValue) {
+      this.$emit('input', newValue);
+    }
+  },
+  components: {
+    CFormControl: _chakra_ui_vue__WEBPACK_IMPORTED_MODULE_0__["CFormControl"],
+    CFormLabel: _chakra_ui_vue__WEBPACK_IMPORTED_MODULE_0__["CFormLabel"],
+    CInput: _chakra_ui_vue__WEBPACK_IMPORTED_MODULE_0__["CInput"]
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/index.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/UI/pages/Models/components/PierModelFieldOption/index.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PierBooleanField__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PierBooleanField */ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue");
+/* harmony import */ var _PierTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PierTextField */ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue");
+/* harmony import */ var _PierChoicesField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PierChoicesField */ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "PierModelFieldOption",
+  props: {
+    option: Object,
+    value: Object | String | Boolean
+  },
+  mounted: function mounted() {
+    if (this.option) {
+      var defaultValue = this.option.defaultValue;
+      if (defaultValue !== undefined) this.val = defaultValue;
+    }
+  },
+  data: function data() {
+    return {
+      val: ""
+    };
+  },
+  watch: {
+    val: function val(newValue) {
+      this.$emit('input', newValue);
+    }
+  },
+  components: {
+    PierTextField: _PierTextField__WEBPACK_IMPORTED_MODULE_1__["default"],
+    PierBooleanField: _PierBooleanField__WEBPACK_IMPORTED_MODULE_0__["default"],
+    PierChoicesField: _PierChoicesField__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 });
 
@@ -1225,6 +1399,23 @@ var render = function() {
                                     1
                                   ),
                                   _vm._v(" "),
+                                  _vm._l(_vm.fieldOptions, function(
+                                    option,
+                                    key
+                                  ) {
+                                    return _c("PierModelFieldOption", {
+                                      key: key,
+                                      attrs: { option: option },
+                                      model: {
+                                        value: _vm.field.meta[key],
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.field.meta, key, $$v)
+                                        },
+                                        expression: "field.meta[key]"
+                                      }
+                                    })
+                                  }),
+                                  _vm._v(" "),
                                   _c(
                                     "c-form-control",
                                     { attrs: { mb: "6" } },
@@ -1256,24 +1447,7 @@ var render = function() {
                                       )
                                     ],
                                     1
-                                  ),
-                                  _vm._v(" "),
-                                  _vm._l(_vm.fieldOptions, function(
-                                    option,
-                                    key
-                                  ) {
-                                    return _c("PierModelFieldOption", {
-                                      key: key,
-                                      attrs: { option: option },
-                                      model: {
-                                        value: _vm.field.meta[key],
-                                        callback: function($$v) {
-                                          _vm.$set(_vm.field.meta, key, $$v)
-                                        },
-                                        expression: "field.meta[key]"
-                                      }
-                                    })
-                                  })
+                                  )
                                 ],
                                 2
                               )
@@ -1363,10 +1537,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/index.vue?vue&type=template&id=97b7a94a&":
-/*!*********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/UI/pages/Models/components/PierModelFieldOption/index.vue?vue&type=template&id=97b7a94a& ***!
-  \*********************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue?vue&type=template&id=a8c18b42&":
+/*!********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue?vue&type=template&id=a8c18b42& ***!
+  \********************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1399,6 +1573,176 @@ var render = function() {
     ],
     1
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue?vue&type=template&id=5646d2d5&":
+/*!********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue?vue&type=template&id=5646d2d5& ***!
+  \********************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "c-form-control",
+    { attrs: { mb: "6" } },
+    [
+      _c(
+        "c-form-label",
+        {
+          attrs: {
+            "html-for": _vm.option.label,
+            color: "#777",
+            fontSize: "lg",
+            for: "fieldLabel"
+          }
+        },
+        [_vm._v("\n        " + _vm._s(_vm.option.label) + "\n    ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "c-select",
+        {
+          attrs: { placeholder: "Choose one" },
+          model: {
+            value: _vm.val,
+            callback: function($$v) {
+              _vm.val = $$v
+            },
+            expression: "val"
+          }
+        },
+        _vm._l(_vm.option.choices, function(choice, index) {
+          return _c("option", { key: index, domProps: { value: choice } }, [
+            _vm._v("\n            " + _vm._s(choice) + "\n        ")
+          ])
+        }),
+        0
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue?vue&type=template&id=ba591e20&":
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue?vue&type=template&id=ba591e20& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "c-form-control",
+    { attrs: { mb: "6" } },
+    [
+      _c(
+        "c-form-label",
+        {
+          attrs: {
+            "html-for": _vm.option.label,
+            color: "#777",
+            fontSize: "lg",
+            for: "fieldLabel"
+          }
+        },
+        [_vm._v("\n        " + _vm._s(_vm.option.label) + "\n    ")]
+      ),
+      _vm._v(" "),
+      _c("c-input", {
+        attrs: { id: _vm.option.label, type: "text", size: "md" },
+        model: {
+          value: _vm.val,
+          callback: function($$v) {
+            _vm.val = $$v
+          },
+          expression: "val"
+        }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/index.vue?vue&type=template&id=97b7a94a&":
+/*!*********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/UI/pages/Models/components/PierModelFieldOption/index.vue?vue&type=template&id=97b7a94a& ***!
+  \*********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.option.type === Boolean
+    ? _c("PierBooleanField", {
+        attrs: { option: _vm.option },
+        model: {
+          value: _vm.val,
+          callback: function($$v) {
+            _vm.val = $$v
+          },
+          expression: "val"
+        }
+      })
+    : _vm.option.type == "choice"
+    ? _c("PierChoicesField", {
+        attrs: { option: _vm.option },
+        model: {
+          value: _vm.val,
+          callback: function($$v) {
+            _vm.val = $$v
+          },
+          expression: "val"
+        }
+      })
+    : _c("PierTextField", {
+        attrs: { option: _vm.option },
+        model: {
+          value: _vm.val,
+          callback: function($$v) {
+            _vm.val = $$v
+          },
+          expression: "val"
+        }
+      })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -1576,6 +1920,213 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PierEditableModelField_vue_vue_type_template_id_37734287___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PierEditableModelField_vue_vue_type_template_id_37734287___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PierBooleanField_vue_vue_type_template_id_a8c18b42___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PierBooleanField.vue?vue&type=template&id=a8c18b42& */ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue?vue&type=template&id=a8c18b42&");
+/* harmony import */ var _PierBooleanField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PierBooleanField.vue?vue&type=script&lang=js& */ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PierBooleanField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PierBooleanField_vue_vue_type_template_id_a8c18b42___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PierBooleanField_vue_vue_type_template_id_a8c18b42___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PierBooleanField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./PierBooleanField.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PierBooleanField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue?vue&type=template&id=a8c18b42&":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue?vue&type=template&id=a8c18b42& ***!
+  \**************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PierBooleanField_vue_vue_type_template_id_a8c18b42___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./PierBooleanField.vue?vue&type=template&id=a8c18b42& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierBooleanField.vue?vue&type=template&id=a8c18b42&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PierBooleanField_vue_vue_type_template_id_a8c18b42___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PierBooleanField_vue_vue_type_template_id_a8c18b42___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PierChoicesField_vue_vue_type_template_id_5646d2d5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PierChoicesField.vue?vue&type=template&id=5646d2d5& */ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue?vue&type=template&id=5646d2d5&");
+/* harmony import */ var _PierChoicesField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PierChoicesField.vue?vue&type=script&lang=js& */ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PierChoicesField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PierChoicesField_vue_vue_type_template_id_5646d2d5___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PierChoicesField_vue_vue_type_template_id_5646d2d5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PierChoicesField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./PierChoicesField.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PierChoicesField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue?vue&type=template&id=5646d2d5&":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue?vue&type=template&id=5646d2d5& ***!
+  \**************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PierChoicesField_vue_vue_type_template_id_5646d2d5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./PierChoicesField.vue?vue&type=template&id=5646d2d5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierChoicesField.vue?vue&type=template&id=5646d2d5&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PierChoicesField_vue_vue_type_template_id_5646d2d5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PierChoicesField_vue_vue_type_template_id_5646d2d5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PierTextField_vue_vue_type_template_id_ba591e20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PierTextField.vue?vue&type=template&id=ba591e20& */ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue?vue&type=template&id=ba591e20&");
+/* harmony import */ var _PierTextField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PierTextField.vue?vue&type=script&lang=js& */ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PierTextField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PierTextField_vue_vue_type_template_id_ba591e20___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PierTextField_vue_vue_type_template_id_ba591e20___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************!*\
+  !*** ./resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PierTextField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./PierTextField.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PierTextField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue?vue&type=template&id=ba591e20&":
+/*!***********************************************************************************************************************!*\
+  !*** ./resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue?vue&type=template&id=ba591e20& ***!
+  \***********************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PierTextField_vue_vue_type_template_id_ba591e20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./PierTextField.vue?vue&type=template&id=ba591e20& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/UI/pages/Models/components/PierModelFieldOption/PierTextField.vue?vue&type=template&id=ba591e20&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PierTextField_vue_vue_type_template_id_ba591e20___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PierTextField_vue_vue_type_template_id_ba591e20___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

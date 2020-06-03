@@ -1,19 +1,20 @@
 <template>
-    <c-form-control mb="6">
-        <c-switch :id="option.label" mr="2"
-            color="orange" size="md"
-            v-model="val"
-        />
-
-        <c-form-label :html-for="option.label">
-            {{ option.label }}
-        </c-form-label>
-    </c-form-control>
+    <PierBooleanField v-if="option.type === Boolean" 
+        :option="option"
+        v-model="val" />
+    <PierChoicesField v-else-if="option.type == 'choice'" 
+        :option="option"
+        v-model="val" />
+    <PierTextField v-else 
+        :option="option"
+        v-model="val" />
 </template>
 
 <script>
 
-import { CFormControl, CFormLabel, CSwitch } from '@chakra-ui/vue';
+import PierBooleanField from './PierBooleanField';
+import PierTextField from './PierTextField';
+import PierChoicesField from './PierChoicesField';
 
 export default {
   name: "PierModelFieldOption",
@@ -39,7 +40,9 @@ export default {
         }
     },
     components: {
-        CFormControl, CFormLabel, CSwitch
+        PierTextField,
+        PierBooleanField,
+        PierChoicesField
     }
 }
 </script>
