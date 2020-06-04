@@ -21,6 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/cms', 'CMSController@index')->name('cms');
+Route::post('/upload_file', 'CMSController@upload_file')->name('upload_file');
+
 Route::prefix('model')->group(function () {
     Route::post('/', 'EditorController@create');
     Route::get('/', 'EditorController@list');

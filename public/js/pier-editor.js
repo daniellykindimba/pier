@@ -24286,15 +24286,15 @@ var router = createRouter();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var DefaultContainer = function DefaultContainer() {
-  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../UI/DefaultContainer */ "./resources/pier-editor/UI/DefaultContainer.vue"));
+  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../UI/DefaultContainer */ "./resources/pier-editor/UI/DefaultContainer.vue"));
 };
 
 var Models = function Models() {
-  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../UI/pages/Models */ "./resources/pier-editor/UI/pages/Models/index.vue"));
+  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../UI/pages/Models */ "./resources/pier-editor/UI/pages/Models/index.vue"));
 };
 
 var ModelsList = function ModelsList() {
-  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/List */ "./resources/pier-editor/UI/pages/Models/List.vue"));
+  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/List */ "./resources/pier-editor/UI/pages/Models/List.vue"));
 };
 
 var AddModel = function AddModel() {
