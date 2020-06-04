@@ -10,5 +10,13 @@ import mutations from './mutations';
 export default new vuex.Store({
   state,
   actions,
-  mutations
+  mutations,
+  getters: {
+    modelBeingEdited: state => {
+      if(!state.modelBeingEditedId || !state.models)
+        return null;
+
+      return state.models.find(({_id}) => _id === state.modelBeingEditedId)
+    }
+  }
 })

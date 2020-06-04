@@ -5,8 +5,8 @@ export default {
     SET_MODELS(state, models){
         state.models = models;
     },
-    SET_MODEL_BEING_EDITED(state, model){
-        state.modelBeingEdited = model;
+    SET_MODEL_BEING_EDITED(state, modelId){
+        state.modelBeingEditedId = modelId;
     },
     SAVING_MODEL(state, status){
         state.savingModel = status;

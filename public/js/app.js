@@ -24302,7 +24302,7 @@ var AddModel = function AddModel() {
 };
 
 var ModelDetail = function ModelDetail() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Detail */ "./resources/js/UI/pages/Models/Detail.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Detail */ "./resources/js/UI/pages/Models/Detail/index.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ([{
@@ -24836,24 +24836,17 @@ var getModels = /*#__PURE__*/function () {
   };
 }();
 var setModelBeingEdited = function setModelBeingEdited(_ref3, modelId) {
-  var state = _ref3.state,
-      commit = _ref3.commit;
-  if (!modelId) commit('SET_MODEL_BEING_EDITED', null);
-  if (!state.models) return;
-  var model = state.models.find(function (_ref4) {
-    var _id = _ref4._id;
-    return _id === modelId;
-  });
-  commit('SET_MODEL_BEING_EDITED', model);
+  var commit = _ref3.commit;
+  commit('SET_MODEL_BEING_EDITED', modelId);
 };
 var createModel = /*#__PURE__*/function () {
-  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref5, data) {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref4, data) {
     var commit, state, model, models;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            commit = _ref5.commit, state = _ref5.state;
+            commit = _ref4.commit, state = _ref4.state;
             commit('SAVING_MODEL', true);
             _context2.prev = 2;
             _context2.next = 5;
@@ -24887,17 +24880,17 @@ var createModel = /*#__PURE__*/function () {
   }));
 
   return function createModel(_x2, _x3) {
-    return _ref6.apply(this, arguments);
+    return _ref5.apply(this, arguments);
   };
 }();
 var updateModel = /*#__PURE__*/function () {
-  var _ref8 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref7, updatedModel) {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref6, updatedModel) {
     var commit, state, models;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            commit = _ref7.commit, state = _ref7.state;
+            commit = _ref6.commit, state = _ref6.state;
             commit('SAVING_MODEL', true);
             _context3.prev = 2;
             _context3.next = 5;
@@ -24932,11 +24925,11 @@ var updateModel = /*#__PURE__*/function () {
   }));
 
   return function updateModel(_x4, _x5) {
-    return _ref8.apply(this, arguments);
+    return _ref7.apply(this, arguments);
   };
 }();
 var removeModel = /*#__PURE__*/function () {
-  var _ref10 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref9, modelId) {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref8, modelId) {
     var commit, state, models, setDeletingModelStatus;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
       while (1) {
@@ -24952,7 +24945,7 @@ var removeModel = /*#__PURE__*/function () {
               commit('SET_MODELS', models);
             };
 
-            commit = _ref9.commit, state = _ref9.state;
+            commit = _ref8.commit, state = _ref8.state;
             models = state.models;
             if (!models) models = [];
             _context4.prev = 4;
@@ -24984,7 +24977,7 @@ var removeModel = /*#__PURE__*/function () {
   }));
 
   return function removeModel(_x6, _x7) {
-    return _ref10.apply(this, arguments);
+    return _ref9.apply(this, arguments);
   };
 }();
 
@@ -25014,7 +25007,16 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: _state__WEBPACK_IMPORTED_MODULE_3__["default"],
   actions: _actions__WEBPACK_IMPORTED_MODULE_2__,
-  mutations: _mutations__WEBPACK_IMPORTED_MODULE_4__["default"]
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_4__["default"],
+  getters: {
+    modelBeingEdited: function modelBeingEdited(state) {
+      if (!state.modelBeingEditedId || !state.models) return null;
+      return state.models.find(function (_ref) {
+        var _id = _ref._id;
+        return _id === state.modelBeingEditedId;
+      });
+    }
+  }
 }));
 
 /***/ }),
@@ -25035,8 +25037,8 @@ __webpack_require__.r(__webpack_exports__);
   SET_MODELS: function SET_MODELS(state, models) {
     state.models = models;
   },
-  SET_MODEL_BEING_EDITED: function SET_MODEL_BEING_EDITED(state, model) {
-    state.modelBeingEdited = model;
+  SET_MODEL_BEING_EDITED: function SET_MODEL_BEING_EDITED(state, modelId) {
+    state.modelBeingEditedId = modelId;
   },
   SAVING_MODEL: function SAVING_MODEL(state, status) {
     state.savingModel = status;
@@ -25057,7 +25059,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   fetchingModels: false,
   models: null,
-  modelBeingEdited: null,
+  modelBeingEditedId: null,
   savingModel: false
 });
 

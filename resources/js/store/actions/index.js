@@ -19,15 +19,8 @@ export const getModels = async ({ commit }) => {
     }
 }
 
-export const setModelBeingEdited = ({ state, commit }, modelId) => {
-    if (!modelId)
-        commit('SET_MODEL_BEING_EDITED', null);
-
-    if (!state.models)
-        return;
-
-    const model = state.models.find(({ _id }) => _id === modelId);
-    commit('SET_MODEL_BEING_EDITED', model);
+export const setModelBeingEdited = ({ commit }, modelId) => {
+    commit('SET_MODEL_BEING_EDITED', modelId);
 }
 
 export const createModel = async ({ commit, state }, data) => {

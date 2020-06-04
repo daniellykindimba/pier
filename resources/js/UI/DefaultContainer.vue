@@ -1,23 +1,34 @@
 <template>
   <div id="PierApp" class="h-screen bg-dark-200 flex text-white">
-    <!-- <aside class="h-full w-64 bg-dark-300 p-5">
-      Some aside stuff here
-    </aside> -->
+    <aside v-if="modelBeingEdited && modelBeingEdited._id" 
+      class="h-full w-64 bg-dark-300 p-5">
+      <c-text fontSize="3xl" color="orange.200">
+        Pier
+      </c-text>
+      <c-box mb="6" />
+
+      <template v-if="models && models.length">
+        <c-link v-for="(model, index) in models" 
+          :key="index"
+          as="router-link" 
+          :to="`/models/${model._id}/details`"
+        >
+          <c-box px="1" py="4" 
+            :color="model._id === modelBeingEdited._id ? 'orange.300' : ''">
+            {{ model.name }}
+          </c-box>
+        </c-link>
+      </template>
+    </aside>
     
     <main class="h-full flex-1 flex flex-col">
-      <header class="h-16 flex items-center px-6 py-3">
+      <header v-if="!modelBeingEdited || !modelBeingEdited._id" class="h-16 flex items-center px-6 py-3">
         <c-text padding="6" fontSize="2xl">
           Pier
         </c-text>
       </header>
 
       <div class="flex-1 bg-dark-400 overflow-auto">
-        <!-- <c-box px="6">
-          <c-text color="#888" px="6" py="3" fontSize="18px">
-            {{ list }}
-          </c-text>
-        </c-box> -->
-
         <c-dark-mode>
           <router-view />
         </c-dark-mode>
@@ -28,13 +39,17 @@
 
 <script>
 
-import { CText, CButton, CDarkMode, CBox } from '@chakra-ui/vue';
+import { CText, CLink, CButton, CDarkMode, CBox } from '@chakra-ui/vue';
+import { mapState, mapGetters } from 'vuex';
+
 export default {
   name: "DefaultContainer",
   data() {
     return {};
   },
   computed: {
+    ...mapState(['models']),
+    ...mapGetters(['modelBeingEdited']),
     name() {
       return this.$route.name;
     },
@@ -51,7 +66,9 @@ export default {
     async logout() {}
   },
   components: {
-    CText, CButton, CDarkMode, CBox
+    CText,
+    CLink,
+    CButton, CDarkMode, CBox
   }
 };
 </script>

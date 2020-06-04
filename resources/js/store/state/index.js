@@ -1,6 +1,6 @@
 export default {
     fetchingModels: false,
     models: null,
-    modelBeingEdited: null,
+    modelBeingEditedId: null,
     savingModel: false,
 }
