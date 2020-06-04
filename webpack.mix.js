@@ -14,5 +14,5 @@ const mix = require('laravel-mix');
 mix.postCss('resources/css/tw.css', 'public/css', [
         require('tailwindcss'),
     ])
-    .js('resources/js/app.js', 'public/js')
+    .js('resources/pier-editor/index.js', 'public/js/pier-editor.js')
     .sass('resources/sass/app.scss', 'public/css');
