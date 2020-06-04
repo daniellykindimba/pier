@@ -166,7 +166,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _this2.fetchingRecords = true;
                 _context.next = 3;
-                return Object(_services_API__WEBPACK_IMPORTED_MODULE_6__["browseModel"])(_this2.modelId);
+                return Object(_services_API__WEBPACK_IMPORTED_MODULE_6__["browseModel"])(_this2.name);
 
               case 3:
                 res = _context.sent;
@@ -192,7 +192,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _this3.populating = true;
                 _context2.next = 3;
-                return Object(_services_API__WEBPACK_IMPORTED_MODULE_6__["populateModel"])(_this3.modelId);
+                return Object(_services_API__WEBPACK_IMPORTED_MODULE_6__["populateModel"])(_this3.name);
 
               case 3:
                 res = _context2.sent;

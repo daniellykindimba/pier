@@ -143,13 +143,13 @@ export default {
   methods: {
     async fetchRecords(){
       this.fetchingRecords = true;
-      const res = await browseModel(this.modelId);
+      const res = await browseModel(this.name);
       this.records = res;
       this.fetchingRecords = false;
     },
     async populate(){
       this.populating = true;
-      const res = await populateModel(this.modelId);
+      const res = await populateModel(this.name);
       this.records = res;
       this.populating = false;
     },

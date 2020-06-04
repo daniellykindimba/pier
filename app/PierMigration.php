@@ -22,15 +22,15 @@ class PierMigration extends Model{
         return PierMigration::find($modelId);
     }
     
-    static function browse($modelId){
-        $model = PierMigration::find($modelId);
-        $table_name = Str::snake($model->name);
+    static function browse($model){
+        $table_name = Str::snake($model);
         return DB::table($table_name)->get();
     }
     
-    static function populate($modelId){
-        $model = PierMigration::find($modelId);
-        $table_name = Str::snake($model->name);
+    static function populate($model){
+        $table_name = Str::snake($model);
+        $model_name = self::pascal_to_sentence($model);
+        $model = PierMigration::where("name", $model_name)->first();
         $fields = json_decode($model->fields);
         $types = collect($fields)->map(function($field){
             return $field->type;
