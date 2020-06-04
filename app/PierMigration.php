@@ -209,7 +209,7 @@ class PierMigration extends Model{
                 return $faker->numberBetween(13, 237);
                 
             case 'rating':
-                return $faker->numberBetween(1, $meta->outOf);
+                return $faker->randomFloat(1, 1, $meta->outOf);
                 
             case 'boolean':
                 return $faker->randomElement(array (0,1));
@@ -275,7 +275,7 @@ class PierMigration extends Model{
                 break;
                 
             case 'rating':
-                $processed = $table->integer($field);
+                $processed = $table->float($field);
                 break;
                 
             case 'boolean':
