@@ -34,12 +34,16 @@
       };
     },
     watch: {
-      modelName: function(modelId){
+      modelName: function(){
         this.setupModel();
       },
     },
     methods: {
       setupModel(){
+        if(!this.modelName)
+          return;
+
+        this.$store.dispatch('setSelectedModel', this.modelName);
         let model = window.models.find(({name}) => name === this.modelName);
         if(model){
           model.fields = JSON.parse(model.fields);

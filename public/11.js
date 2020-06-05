@@ -1477,17 +1477,66 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************!*\
   !*** ./resources/pier-cms/Utils/index.js ***!
   \*******************************************/
-/*! exports provided: getYouTubeVideoIdFromUrl */
+/*! exports provided: getYouTubeVideoIdFromUrl, handleNetworkError, showErrorToast, showSuccessToast */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getYouTubeVideoIdFromUrl", function() { return getYouTubeVideoIdFromUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleNetworkError", function() { return handleNetworkError; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showErrorToast", function() { return showErrorToast; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showSuccessToast", function() { return showSuccessToast; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function getYouTubeVideoIdFromUrl(url) {
   url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
   var youtubeRegex = /(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/;
   if (!youtubeRegex.test(url)) return null;
   return url[2] !== undefined ? url[2].split(/[^0-9a-z_-]/i)[0] : url[0];
+}
+function handleNetworkError(_x) {
+  return _handleNetworkError.apply(this, arguments);
+}
+
+function _handleNetworkError() {
+  _handleNetworkError = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(error) {
+    var fallbackMessage,
+        _args = arguments;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            fallbackMessage = _args.length > 1 && _args[1] !== undefined ? _args[1] : "Network error";
+            if (error && error.response && error.response.data) showErrorToast(error.response.data);else showErrorToast(fallbackMessage);
+            console.log(fallbackMessage, error);
+
+          case 3:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _handleNetworkError.apply(this, arguments);
+}
+
+function showErrorToast(message) {
+  Vue.$toast.error(message, {
+    position: 'top-right',
+    duration: 3000
+  });
+}
+function showSuccessToast(message) {
+  Vue.$toast.success(message, {
+    position: 'top-right',
+    duration: 3000
+  });
 }
 
 /***/ })

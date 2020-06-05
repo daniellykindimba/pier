@@ -37,6 +37,7 @@
 <script>
   import { fetchModelRecords, populateModel } from "../../API";
   import TableRow from "./TableRow";
+  import { mapState } from 'vuex';
 
   export default {
     name: 'PierCMSList',
@@ -53,10 +54,11 @@
     },
     data() {
       return {
-        records: [],
         populating: false,
-        fetchingRecords: false,
       };
+    },
+    computed: {
+      ...mapState(['records', 'fetchingRecords'])
     },
     watch: {
       model: function(){
@@ -65,19 +67,10 @@
     },
     methods: {
       async fetchRecords(){
-        if(!this.model || !this.model._id)
-          return;
-
-        this.fetchingRecords = true;
-        const res = await fetchModelRecords(this.model.name);
-        this.records = res;
-        this.fetchingRecords = false;
+        this.$store.dispatch('fetchRecords');
       },
       async populate(){
-        // this.populating = true;
-        // const res = await populateModel(this.model.name);
-        // this.records = res;
-        // this.populating = false;
+        // this.$store.dispatch('populateRecords');
       },
     },
     components: {

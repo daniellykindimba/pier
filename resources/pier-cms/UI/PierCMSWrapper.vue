@@ -22,16 +22,18 @@
 </template>
 
 <script>
-  export default {
+import { mapState } from 'vuex';
+export default {
     name: 'PierCMSWrapper',
     mounted(){
         if(this.$route.path === "/")
             this.$router.replace("/" + window.models[0].name);
+
+        if(!this.models)
+            this.$store.dispatch('setModels', window.models);
     },
-    data() {
-      return {
-        models: window.models
-      };
+    computed: {
+        ...mapState(['models', 'selectedModelName'])
     }
-  }
+}
 </script>
