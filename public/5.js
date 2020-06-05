@@ -293,6 +293,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     } else this.$store.dispatch('setModelBeingEdited', this.modelId);
   },
+  beforeDestroy: function beforeDestroy() {
+    this.$store.dispatch('setModelBeingEdited', null);
+  },
   data: function data() {
     return {
       model: {}

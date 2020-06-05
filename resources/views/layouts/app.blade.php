@@ -9,16 +9,42 @@
 
     <title>{{ config('app.name', 'Pier') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/pier-editor.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Muli:wght@200;400;520;600&display=swap" rel="stylesheet" />
 
     <!-- Styles -->
-    <link href="{{ asset('css/tw.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    
+    <style>
+        body{
+            font-family: 'Muli', sans-serif;
+        }
+
+        .bg-dark,
+        .bg-dark-500{
+            background: #050505;
+        }
+
+        .bg-dark-100{
+            background: #424242;
+        }
+
+        .bg-dark-200{
+            background: #303030;
+        }
+
+        .bg-dark-300{
+            background: #212121;
+        }
+
+        .bg-dark-400{
+            background: #181818;
+        }
+    </style>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/pier-editor.js') }}" defer></script>
 </head>
 <body>
     <div id="app">

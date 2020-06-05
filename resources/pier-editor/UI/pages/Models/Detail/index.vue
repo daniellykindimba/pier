@@ -67,6 +67,9 @@ export default {
     else
       this.$store.dispatch('setModelBeingEdited', this.modelId);
   },
+  beforeDestroy(){
+    this.$store.dispatch('setModelBeingEdited', null);
+  },
   data() {
     return {
       model: {}

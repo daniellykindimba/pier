@@ -24298,7 +24298,7 @@ var ModelsList = function ModelsList() {
 };
 
 var AddModel = function AddModel() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Add */ "./resources/pier-editor/UI/pages/Models/Add.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Add */ "./resources/pier-editor/UI/pages/Models/Add.vue"));
 };
 
 var ModelDetail = function ModelDetail() {
