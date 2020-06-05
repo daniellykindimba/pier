@@ -20597,13 +20597,14 @@ module.exports = g;
 /*!*****************************************!*\
   !*** ./resources/pier-cms/API/index.js ***!
   \*****************************************/
-/*! exports provided: populateModel, fetchModelRecords */
+/*! exports provided: populateModel, fetchModelRecords, deleteRecord */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "populateModel", function() { return populateModel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchModelRecords", function() { return fetchModelRecords; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRecord", function() { return deleteRecord; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _setup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setup */ "./resources/pier-cms/API/setup.js");
@@ -20653,6 +20654,26 @@ var fetchModelRecords = /*#__PURE__*/function () {
 
   return function fetchModelRecords(_x2) {
     return _ref2.apply(this, arguments);
+  };
+}();
+var deleteRecord = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(modelName, rowId) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            return _context3.abrupt("return", Object(_setup__WEBPACK_IMPORTED_MODULE_1__["remove"])("/api/".concat(modelName, "/").concat(rowId), token));
+
+          case 1:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+
+  return function deleteRecord(_x3, _x4) {
+    return _ref3.apply(this, arguments);
   };
 }();
 
@@ -21135,7 +21156,7 @@ var DeleteRow = function DeleteRow() {
 /*!***************************************************!*\
   !*** ./resources/pier-cms/store/actions/index.js ***!
   \***************************************************/
-/*! exports provided: setModels, setSelectedModel, fetchRecords, setSelectedRecord, createRecord, updateModel, removeModel */
+/*! exports provided: setModels, setSelectedModel, fetchRecords, setSelectedRecord, createRecord, updateModel, removeRecord */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21146,7 +21167,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSelectedRecord", function() { return setSelectedRecord; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRecord", function() { return createRecord; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateModel", function() { return updateModel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeModel", function() { return removeModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeRecord", function() { return removeRecord; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Utils */ "./resources/pier-cms/Utils/index.js");
@@ -21294,7 +21315,7 @@ var updateModel = /*#__PURE__*/function () {
     return _ref9.apply(this, arguments);
   };
 }();
-var removeModel = /*#__PURE__*/function () {
+var removeRecord = /*#__PURE__*/function () {
   var _ref11 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref10, recordId) {
     var commit, state, records;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
@@ -21302,12 +21323,21 @@ var removeModel = /*#__PURE__*/function () {
         switch (_context4.prev = _context4.next) {
           case 0:
             commit = _ref10.commit, state = _ref10.state;
-            commit('DELETING_RECORD', true);
-            _context4.prev = 2;
-            _context4.next = 5;
-            return deleteRecord(state.selectedModelName, recordId);
 
-          case 5:
+            if (state.selectedModelName) {
+              _context4.next = 3;
+              break;
+            }
+
+            return _context4.abrupt("return");
+
+          case 3:
+            commit('DELETING_RECORD', true);
+            _context4.prev = 4;
+            _context4.next = 7;
+            return Object(_API__WEBPACK_IMPORTED_MODULE_2__["deleteRecord"])(state.selectedModelName, recordId);
+
+          case 7:
             commit('DELETING_RECORD', false);
             records = state.records;
             if (!records) records = [];
@@ -21317,25 +21347,25 @@ var removeModel = /*#__PURE__*/function () {
             });
             commit('SET_RECORDS', records);
             _router__WEBPACK_IMPORTED_MODULE_3__["default"].replace("/".concat(state.selectedModelName));
-            Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["showSuccessToast"])("".concat(state.selectedModelName, " updated"));
-            _context4.next = 18;
+            Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["showSuccessToast"])("".concat(state.selectedModelName, " deleted"));
+            _context4.next = 20;
             break;
 
-          case 14:
-            _context4.prev = 14;
-            _context4.t0 = _context4["catch"](2);
-            Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["handleNetworkError"])(_context4.t0, "Error updating ".concat(state.selectedModelName, ":"));
+          case 16:
+            _context4.prev = 16;
+            _context4.t0 = _context4["catch"](4);
+            Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["handleNetworkError"])(_context4.t0, "Error deleting ".concat(state.selectedModelName, ":"));
             commit('DELETING_RECORD', false);
 
-          case 18:
+          case 20:
           case "end":
             return _context4.stop();
         }
       }
-    }, _callee4, null, [[2, 14]]);
+    }, _callee4, null, [[4, 16]]);
   }));
 
-  return function removeModel(_x6, _x7) {
+  return function removeRecord(_x6, _x7) {
     return _ref11.apply(this, arguments);
   };
 }();

@@ -10,3 +10,8 @@ export const fetchModelRecords = async (modelName) => {
     // const token = await getToken();
     return get(`/api/${modelName}`, token);
 };
+
+export const deleteRecord = async (modelName, rowId) => {
+    // const token = await getToken();
+    return remove(`/api/${modelName}/${rowId}`, token);
+};

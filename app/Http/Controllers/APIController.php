@@ -11,4 +11,9 @@ class APIController extends Controller
         $res = PierMigration::browse($model);
         return response()->json($res);
     }
+    
+    public function deleteResource($model, $rowId){
+        $res = PierMigration::deleteEntry($model, $rowId);
+        return response()->json($res);
+    }
 }

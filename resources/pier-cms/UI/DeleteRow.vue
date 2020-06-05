@@ -8,14 +8,14 @@
       </div>
       <div class="modal-buttons">
         <button class="p-2 font-bold text-sm tracking-wider"
-          :class="{'pointer-events-none opacity-50' : deletingRow}"
+          :class="{'pointer-events-none opacity-50' : deletingRecord}"
           @click="$router.replace(`/${modelName}`)">
           No, Cancel
         </button>
         <button class="bg-red-100 border-red-200 font-semibold px-4 py-2 rounded text-red-500 text-red-600 text-sm tracking-wider" 
-          :class="{'pointer-events-none opacity-50' : deletingRow}"
+          :class="{'pointer-events-none opacity-50' : deletingRecord}"
           @click="deleteRow(null, true)">
-          {{ deletingRow ? 'Deleting...' : 'Yes, Delete' }}
+          {{ deletingRecord ? 'Deleting...' : 'Yes, Delete' }}
         </button>
       </div>
     </div>
@@ -23,40 +23,21 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
   export default {
     name: 'PierCMSDeleteRow',
     props: {
-      modelName: {
-        type: String,
-        required: true
-      },
       rowId: {
         type: String,
         required: true
       }
     },
-    mounted(){
-      this.setupModel();
-    },
-    data() {
-      return {
-        deletingRow: false
-      };
-    },
-    watch: {
-      modelName: function(modelId){
-        this.setupModel();
-      },
+    computed: {
+      ...mapState(['deletingRecord'])
     },
     methods: {
-      setupModel(){
-        console.log("Delete row:", this.modelName, this.rowId);
-      },
-      async deleteRow(){
-        this.deletingRow = true;
-        await {then: resolve => setTimeout(resolve, 2000)};
-        this.deletingRow = false;
-        this.$router.replace(`/${this.modelName}`);
+      deleteRow(){
+        this.$store.dispatch('removeRecord', this.rowId);
       },
     }
   }

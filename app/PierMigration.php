@@ -27,6 +27,11 @@ class PierMigration extends Model{
         return DB::table($table_name)->get();
     }
     
+    static function deleteEntry($model, $entryId){
+        $table_name = Str::snake($model);
+        return DB::table($table_name)->where('_id', '=', $entryId)->delete();
+    }
+    
     static function populate($model){
         $table_name = Str::snake($model);
         $model_name = self::pascal_to_sentence($model);

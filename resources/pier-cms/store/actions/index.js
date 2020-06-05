@@ -1,5 +1,5 @@
 import { handleNetworkError, showSuccessToast } from '../../Utils';
-import { fetchModelRecords } from '../../API';
+import { fetchModelRecords, deleteRecord } from '../../API';
 import router from '../../router';
 
 export const setModels = ({ commit }, models) => {
@@ -77,7 +77,10 @@ export const updateModel = async ({ commit, state }, updatedRecord) => {
     }
 }
 
-export const removeModel = async ({ commit, state }, recordId) => {
+export const removeRecord = async ({ commit, state }, recordId) => {
+    if(!state.selectedModelName)
+        return;
+        
     commit('DELETING_RECORD', true);
     try {
         await deleteRecord(state.selectedModelName, recordId);
@@ -91,9 +94,9 @@ export const removeModel = async ({ commit, state }, recordId) => {
 
         commit('SET_RECORDS', records);
         router.replace(`/${state.selectedModelName}`);
-        showSuccessToast(`${state.selectedModelName} updated`);
+        showSuccessToast(`${state.selectedModelName} deleted`);
     } catch (error) {
-        handleNetworkError(error, `Error updating ${state.selectedModelName}:`);
+        handleNetworkError(error, `Error deleting ${state.selectedModelName}:`);
         commit('DELETING_RECORD', false);
     }
 }
