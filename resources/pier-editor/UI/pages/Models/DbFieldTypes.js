@@ -32,7 +32,14 @@ export default [
     {
       label: 'Long Text',
       value: 'long text',
-      placeholder: 'E.g. description'
+      placeholder: 'E.g. description',
+      options: {
+        wysiwyg: {
+          label: "Is wysiwyg field",
+          type: Boolean,
+          defaultValue: false
+        }
+      }
     },
     {
       label: 'Number',
