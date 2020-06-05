@@ -18842,7 +18842,11 @@ var PierCMSWrapper = function PierCMSWrapper() {
 };
 
 var PierCMS = function PierCMS() {
-  return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ../UI/PierCMS */ "./resources/pier-cms/UI/PierCMS.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(4), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ../UI/PierCMS */ "./resources/pier-cms/UI/PierCMS.vue"));
+};
+
+var DeleteRow = function DeleteRow() {
+  return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, /*! ../UI/DeleteRow */ "./resources/pier-cms/UI/DeleteRow.vue"));
 }; // const AddModel = () => import('../UI/pages/Models/Add');
 // const ModelDetail = () => import('../UI/pages/Models/Detail');
 
@@ -18852,10 +18856,16 @@ var PierCMS = function PierCMS() {
   name: 'PierCMS',
   component: PierCMSWrapper,
   children: [{
-    path: ':modelName',
+    path: '/:modelName',
     name: 'Model',
     component: PierCMS,
-    props: true
+    props: true,
+    children: [{
+      path: '/:modelName/:rowId/delete',
+      name: 'Delete Row',
+      component: DeleteRow,
+      props: true
+    }]
   } // {
   //     path: 'add',
   //     name: 'AddModel',

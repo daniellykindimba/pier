@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen flex-1 flex flex-col">
+  <div class="h-screen flex-1 flex flex-col relative">
     <header id="mainNav">
       <span id="pageTitle">
         {{ modelName }}
@@ -9,6 +9,8 @@
     <div id="mainContent">
       <ModelRecordList :model="model" />
     </div>
+
+    <router-view />
   </div>
 </template>
 
@@ -40,7 +42,6 @@
       setupModel(){
         let model = window.models.find(({name}) => name === this.modelName);
         if(model){
-          console.log(model.fields);
           model.fields = JSON.parse(model.fields);
           this.model = model;
         }

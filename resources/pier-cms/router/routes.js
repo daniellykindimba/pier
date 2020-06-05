@@ -1,5 +1,6 @@
 const PierCMSWrapper = () => import('../UI/PierCMSWrapper');
 const PierCMS = () => import('../UI/PierCMS');
+const DeleteRow = () => import('../UI/DeleteRow');
 // const AddModel = () => import('../UI/pages/Models/Add');
 // const ModelDetail = () => import('../UI/pages/Models/Detail');
 
@@ -10,10 +11,18 @@ export default [
         component: PierCMSWrapper,
         children: [
             {
-                path: ':modelName',
+                path: '/:modelName',
                 name: 'Model',
                 component: PierCMS,
-                props: true
+                props: true,
+                children: [
+                    {
+                        path: '/:modelName/:rowId/delete',
+                        name: 'Delete Row',
+                        component: DeleteRow,
+                        props: true
+                    }
+                ]
             },
             // {
             //     path: 'add',

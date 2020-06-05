@@ -66,14 +66,12 @@
     methods: {
       async fetchRecords(){
         if(!this.model || !this.model._id)
-          return console.log("No model found!");
+          return;
 
         this.fetchingRecords = true;
         const res = await fetchModelRecords(this.model.name);
         this.records = res;
         this.fetchingRecords = false;
-
-        console.log("Records: ", res);
       },
       async populate(){
         // this.populating = true;
