@@ -12,11 +12,14 @@
         <div class="modal-body overflow-y-auto"
           style="padding-top: 10px; padding-bottom: 17px; max-height: 480px;"
         >
-          
-          <div class="input-group">
-            <label for="slideText">Slide Text</label>
-            <input required type="text" id="slideText" name="text" v-model="record.text" />
-          </div>
+          <template v-if="selectedModel">
+            <PierEditorField
+              v-for="field in selectedModel.fields"
+              :key="field.label"
+              :field="field"
+              v-model="record[field.label]"
+            />
+          </template>
         </div>
 
         <div class="modal-buttons">
@@ -41,15 +44,11 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
+import PierEditorField from "./PierEditorField";
+
 export default {
   name: "PierCMSAddRow",
-  props: {
-    rowId: {
-      type: String,
-      required: true
-    }
-  },
   data: function(){
     return {
       record: {
@@ -59,14 +58,18 @@ export default {
   },
   computed: {
     ...mapState(["savingRecord", "selectedModelName"]),
+    ...mapGetters(["selectedModel"]),
     uploadingFile: function(){
       return false;
     }
   },
   methods: {
     saveRow() {
-      // this.$store.dispatch("insertRecord", this.rowId);
+      this.$store.dispatch("createRecord", this.record);
     }
+  },
+  components: {
+    PierEditorField
   }
 };
 </script>

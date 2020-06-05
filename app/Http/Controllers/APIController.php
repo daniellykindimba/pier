@@ -12,6 +12,11 @@ class APIController extends Controller
         return response()->json($res);
     }
     
+    public function createResource($model, Request $request){
+        $res = PierMigration::insertRow($model, $request->all());
+        return response()->json($res);
+    }
+    
     public function deleteResource($model, $rowId){
         $res = PierMigration::deleteEntry($model, $rowId);
         return response()->json($res);

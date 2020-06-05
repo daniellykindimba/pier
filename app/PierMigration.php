@@ -31,6 +31,18 @@ class PierMigration extends Model{
         $table_name = Str::snake($model);
         return DB::table($table_name)->where('_id', '=', $entryId)->delete();
     }
+
+    static function insertRow($model, $data){
+        $table_name = Str::snake($model);
+
+        $data['_id'] = UUID::v4();
+        $data['created_at'] = now();
+        $data['updated_at'] = now();
+        
+        DB::table($table_name)->insert($data);
+        return $data;
+        // return $pierModel->fresh();
+    }
     
     static function populate($model){
         $table_name = Str::snake($model);

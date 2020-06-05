@@ -24275,23 +24275,23 @@ var router = createRouter();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var DefaultContainer = function DefaultContainer() {
-  return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../UI/DefaultContainer */ "./resources/pier-editor/UI/DefaultContainer.vue"));
+  return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../UI/DefaultContainer */ "./resources/pier-editor/UI/DefaultContainer.vue"));
 };
 
 var Models = function Models() {
-  return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../UI/pages/Models */ "./resources/pier-editor/UI/pages/Models/index.vue"));
+  return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../UI/pages/Models */ "./resources/pier-editor/UI/pages/Models/index.vue"));
 };
 
 var ModelsList = function ModelsList() {
-  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/List */ "./resources/pier-editor/UI/pages/Models/List.vue"));
+  return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/List */ "./resources/pier-editor/UI/pages/Models/List.vue"));
 };
 
 var AddModel = function AddModel() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Add */ "./resources/pier-editor/UI/pages/Models/Add.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Add */ "./resources/pier-editor/UI/pages/Models/Add.vue"));
 };
 
 var ModelDetail = function ModelDetail() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Detail */ "./resources/pier-editor/UI/pages/Models/Detail/index.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ../UI/pages/Models/Detail */ "./resources/pier-editor/UI/pages/Models/Detail/index.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ([{

@@ -13,10 +13,16 @@ export default new vuex.Store({
   mutations,
   getters: {
     selectedModel: state => {
-      if(!state.selectedModelId || !state.models)
+      if(!state.selectedModelName || !state.models)
         return null;
 
-      return state.models.find(({_id}) => _id === state.selectedModelId)
+      return state.models.find(({name}) => name === state.selectedModelName)
+    },
+    selectedRecord: state => {
+      if(!state.selectedRecordId || !state.records)
+        return null;
+
+      return state.records.find(({_id}) => _id === state.selectedRecordId)
     }
   }
 })

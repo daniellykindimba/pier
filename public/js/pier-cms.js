@@ -20597,7 +20597,7 @@ module.exports = g;
 /*!*****************************************!*\
   !*** ./resources/pier-cms/API/index.js ***!
   \*****************************************/
-/*! exports provided: populateModel, fetchModelRecords, deleteRecord */
+/*! exports provided: populateModel, fetchModelRecords, deleteRecord, insertRecord */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20605,6 +20605,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "populateModel", function() { return populateModel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchModelRecords", function() { return fetchModelRecords; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRecord", function() { return deleteRecord; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertRecord", function() { return insertRecord; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _setup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setup */ "./resources/pier-cms/API/setup.js");
@@ -20674,6 +20675,26 @@ var deleteRecord = /*#__PURE__*/function () {
 
   return function deleteRecord(_x3, _x4) {
     return _ref3.apply(this, arguments);
+  };
+}();
+var insertRecord = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(modelName, data) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            return _context4.abrupt("return", Object(_setup__WEBPACK_IMPORTED_MODULE_1__["post"])("/api/".concat(modelName), data, token));
+
+          case 1:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+
+  return function insertRecord(_x5, _x6) {
+    return _ref4.apply(this, arguments);
   };
 }();
 
@@ -21108,19 +21129,19 @@ var router = createRouter();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var PierCMSWrapper = function PierCMSWrapper() {
-  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../UI/PierCMSWrapper */ "./resources/pier-cms/UI/PierCMSWrapper.vue"));
+  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../UI/PierCMSWrapper */ "./resources/pier-cms/UI/PierCMSWrapper.vue"));
 };
 
 var PierCMS = function PierCMS() {
-  return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ../UI/PierCMS */ "./resources/pier-cms/UI/PierCMS.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../UI/PierCMS */ "./resources/pier-cms/UI/PierCMS.vue"));
 };
 
 var AddRow = function AddRow() {
-  return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../UI/AddRow */ "./resources/pier-cms/UI/AddRow/index.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ../UI/AddRow */ "./resources/pier-cms/UI/AddRow/index.vue"));
 };
 
 var DeleteRow = function DeleteRow() {
-  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../UI/DeleteRow */ "./resources/pier-cms/UI/DeleteRow.vue"));
+  return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../UI/DeleteRow */ "./resources/pier-cms/UI/DeleteRow.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ([{
@@ -21249,33 +21270,41 @@ var setSelectedRecord = function setSelectedRecord(_ref5, recordId) {
 };
 var createRecord = /*#__PURE__*/function () {
   var _ref7 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref6, data) {
-    var commit, state;
+    var commit, state, record, records;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             commit = _ref6.commit, state = _ref6.state;
             commit('SAVING_RECORD', true);
+            _context2.prev = 2;
+            _context2.next = 5;
+            return Object(_API__WEBPACK_IMPORTED_MODULE_2__["insertRecord"])(state.selectedModelName, data);
 
-            try {// const record = await insertRecord(state.selectedModelName, data);
-              // commit('SAVING_RECORD', false);
-              // let records = state.records;
-              // if (!records)
-              // records = [];
-              // records.push(record);
-              // commit('SET_RECORDS', records);
-              // router.replace(`/${state.selectedModelName}`);
-              // showSuccessToast(`${state.selectedModelName} created`);
-            } catch (error) {// handleNetworkError(error, `Error creating ${state.selectedModelName}:`);
-              // commit('SAVING_RECORD', false);
-            }
+          case 5:
+            record = _context2.sent;
+            commit('SAVING_RECORD', false);
+            records = state.records;
+            if (!records) records = [];
+            records.unshift(record);
+            commit('SET_RECORDS', records);
+            _router__WEBPACK_IMPORTED_MODULE_3__["default"].replace("/".concat(state.selectedModelName));
+            Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["showSuccessToast"])("".concat(state.selectedModelName, " created"));
+            _context2.next = 19;
+            break;
 
-          case 3:
+          case 15:
+            _context2.prev = 15;
+            _context2.t0 = _context2["catch"](2);
+            Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["handleNetworkError"])(_context2.t0, "Error creating ".concat(state.selectedModelName, ":"));
+            commit('SAVING_RECORD', false);
+
+          case 19:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2);
+    }, _callee2, null, [[2, 15]]);
   }));
 
   return function createRecord(_x2, _x3) {
@@ -21405,10 +21434,17 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   mutations: _mutations__WEBPACK_IMPORTED_MODULE_4__["default"],
   getters: {
     selectedModel: function selectedModel(state) {
-      if (!state.selectedModelId || !state.models) return null;
+      if (!state.selectedModelName || !state.models) return null;
       return state.models.find(function (_ref) {
-        var _id = _ref._id;
-        return _id === state.selectedModelId;
+        var name = _ref.name;
+        return name === state.selectedModelName;
+      });
+    },
+    selectedRecord: function selectedRecord(state) {
+      if (!state.selectedRecordId || !state.records) return null;
+      return state.records.find(function (_ref2) {
+        var _id = _ref2._id;
+        return _id === state.selectedRecordId;
       });
     }
   }

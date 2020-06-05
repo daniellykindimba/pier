@@ -34,5 +34,6 @@ Route::prefix('model')->group(function () {
 Route::prefix('api')->group(function () {
     // Route::post('{model_name}/populate', 'EditorController@populate');
     Route::get('{model_name}', 'APIController@resource');
+    Route::post('{model_name}', 'APIController@createResource');
     Route::delete('{model_name}/{row_id}', 'APIController@deleteResource');
 });

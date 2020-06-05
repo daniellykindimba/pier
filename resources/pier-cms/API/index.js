@@ -15,3 +15,8 @@ export const deleteRecord = async (modelName, rowId) => {
     // const token = await getToken();
     return remove(`/api/${modelName}/${rowId}`, token);
 };
+
+export const insertRecord = async (modelName, data) => {
+    // const token = await getToken();
+    return post(`/api/${modelName}`, data, token);
+};

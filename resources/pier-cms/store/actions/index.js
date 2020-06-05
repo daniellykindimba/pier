@@ -1,5 +1,5 @@
 import { handleNetworkError, showSuccessToast } from '../../Utils';
-import { fetchModelRecords, deleteRecord } from '../../API';
+import { fetchModelRecords, insertRecord, deleteRecord } from '../../API';
 import router from '../../router';
 
 export const setModels = ({ commit }, models) => {
@@ -32,22 +32,22 @@ export const setSelectedRecord = ({ commit }, recordId) => {
 export const createRecord = async ({ commit, state }, data) => {
     commit('SAVING_RECORD', true);
     try {
-        // const record = await insertRecord(state.selectedModelName, data);
+        let record = await insertRecord(state.selectedModelName, data);
         
-        // commit('SAVING_RECORD', false);
+        commit('SAVING_RECORD', false);
 
-        // let records = state.records;
-        // if (!records)
-            // records = [];
+        let records = state.records;
+        if (!records)
+            records = [];
 
-        // records.push(record);
+        records.unshift(record);
 
-        // commit('SET_RECORDS', records);
-        // router.replace(`/${state.selectedModelName}`);
-        // showSuccessToast(`${state.selectedModelName} created`);
+        commit('SET_RECORDS', records);
+        router.replace(`/${state.selectedModelName}`);
+        showSuccessToast(`${state.selectedModelName} created`);
     } catch (error) {
-        // handleNetworkError(error, `Error creating ${state.selectedModelName}:`);
-        // commit('SAVING_RECORD', false);
+        handleNetworkError(error, `Error creating ${state.selectedModelName}:`);
+        commit('SAVING_RECORD', false);
     }
 }
 
