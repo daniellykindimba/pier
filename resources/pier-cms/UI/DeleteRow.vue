@@ -9,7 +9,7 @@
       <div class="modal-buttons">
         <button class="p-2 font-bold text-sm tracking-wider"
           :class="{'pointer-events-none opacity-50' : deletingRecord}"
-          @click="$router.replace(`/${modelName}`)">
+          @click="$router.replace(`/${selectedModelName}`)">
           No, Cancel
         </button>
         <button class="bg-red-100 border-red-200 font-semibold px-4 py-2 rounded text-red-500 text-red-600 text-sm tracking-wider" 
@@ -33,7 +33,7 @@
       }
     },
     computed: {
-      ...mapState(['deletingRecord'])
+      ...mapState(['selectedModelName', 'deletingRecord'])
     },
     methods: {
       deleteRow(){
