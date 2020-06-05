@@ -6,7 +6,7 @@ import Loader from './UI/components/Loader';
 Vue.component('Loader', Loader);
 
 new Vue({
-  el: 'main',
+  el: '#pierCMS',
   router,
   render: (h) => h('router-view')
 }).$mount();

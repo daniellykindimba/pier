@@ -18786,7 +18786,7 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.component('Loader', _UI_components_Loader__WEBPACK_IMPORTED_MODULE_2__["default"]);
 new Vue({
-  el: 'main',
+  el: '#pierCMS',
   router: _router__WEBPACK_IMPORTED_MODULE_1__["default"],
   render: function render(h) {
     return h('router-view');
@@ -18837,11 +18837,8 @@ var router = createRouter();
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var RouteWrapper = {
-  render: function render(h) {
-    if (this.$route.path === "/") this.$router.replace("/" + window.models[0].name);
-    return h('router-view');
-  }
+var PierCMSWrapper = function PierCMSWrapper() {
+  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../UI/PierCMSWrapper */ "./resources/pier-cms/UI/PierCMSWrapper.vue"));
 };
 
 var PierCMS = function PierCMS() {
@@ -18853,7 +18850,7 @@ var PierCMS = function PierCMS() {
 /* harmony default export */ __webpack_exports__["default"] = ([{
   path: '/',
   name: 'PierCMS',
-  component: RouteWrapper,
+  component: PierCMSWrapper,
   children: [{
     path: ':modelName',
     name: 'Model',

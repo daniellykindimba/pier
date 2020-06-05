@@ -214,31 +214,32 @@ aside ul {
 
 aside li {
     list-style-type: none;
-    padding: 14px 10px;
-    margin-left: 20px
 }
 
 aside li a {
-    color: rgba(0, 0, 0, .7);
-    font-size: 16px
+    padding: 14px 25px;
+    display: block;
+    color: #777;
+    font-size: 16px;
+}
+
+aside a.active{
+    color: #2c5282
 }
 
 aside li a:after {
     content: "";
     position: absolute;
-    left: 0;
-    bottom: -4px;
+    left: 25px;
+    bottom: 2px;
     height: 1px;
-    background: #000;
+    background: #2c5282;
     width: 65%;
+    max-width: 90px;
     display: none
 }
 
-aside li.active a {
-    color: rgba(0, 0, 0, 1)
-}
-
-aside li.active a:after {
+aside li a.active:after {
     display: block
 }
 

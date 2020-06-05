@@ -74,12 +74,8 @@
 	</script>
 </head>
 <body>
-    <div id="container">
-		@include('cms.layouts.sidebar')
-
-		<main class="h-screen">
-			
-		</main>
+    <div id="pierCMS">
+		
 	</div>
 	
 	<script>
