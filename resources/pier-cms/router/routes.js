@@ -1,4 +1,10 @@
-const RouteWrapper = { render(h) { return h('router-view') } };
+const RouteWrapper = { render(h) {
+        if(this.$route.path === "/")
+            this.$router.replace("/" + window.models[0].name);
+
+        return h('router-view');
+    } 
+};
 const PierCMS = () => import('../UI/PierCMS');
 // const AddModel = () => import('../UI/pages/Models/Add');
 // const ModelDetail = () => import('../UI/pages/Models/Detail');

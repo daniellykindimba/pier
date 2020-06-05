@@ -40,6 +40,7 @@
       setupModel(){
         let model = window.models.find(({name}) => name === this.modelName);
         if(model){
+          console.log(model.fields);
           model.fields = JSON.parse(model.fields);
           this.model = model;
         }

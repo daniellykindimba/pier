@@ -30,3 +30,8 @@ Route::prefix('model')->group(function () {
     Route::post('{model_name}/populate', 'EditorController@populate');
     Route::get('{model_name}/browse', 'EditorController@browse');
 });
+
+Route::prefix('api')->group(function () {
+    // Route::post('{model_name}/populate', 'EditorController@populate');
+    Route::get('{model_name}', 'APIController@resource');
+});

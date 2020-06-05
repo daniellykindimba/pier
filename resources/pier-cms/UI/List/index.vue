@@ -1,31 +1,43 @@
+<style scoped>
+  .pier-th.image,
+  .pier-th.phone,
+  .pier-th.email,
+  .pier-th.video,
+  .pier-th.rating,
+  .pier-th.boolean,
+  .pier-th.date{
+    text-align: center;
+  }
+</style>
 <template>
-  <table class="table table-stripped" 
-    style="border-top: none !important"
-    v-if="model && model.fields">
+  <Loader :size="90" v-if="fetchingRecords || !model || !model.fields" />
+  <table v-else class="pure-table pure-table-striped" 
+    style="border-top: none !important; width:100%; min-width: 500px;">
     <thead>
       <tr>
-        <th v-for="(field, index) in model.fields" 
+        <th :class="['pier-th', field.type]" v-for="(field, index) in model.fields" 
           :key="index">
           {{ field.label.replace(/_/g, ' ') }}
+        </th>
+        <th style="width: 120px" class="text-center">
+          Actions
         </th>
       </tr>
     </thead>
     <tbody>
-      <!-- <tr class="text-capitalize" v-for="(entry, index) in auditTrail" :key="index">
-        <td class="pl-4 text-center pt-4">
-          <span style="display: inline-block; width: 30px; height: 30px; overflow: hidden; border-radius: 50%" v-html="getIcon(entry.browser)" />
-        </td>
-        <td>
-          <span class="d-block mb-1" style="font-size: 1.3em; line-height: 1.35em">{{ entry.action }}</span>
-          <span style="font-size: 1.3em; color: rgb(65, 145, 177)">{{ entry.time }}</span>
-        </td>
-        <td class="text-center pt-4" style="">{{ entry.operatingSystem }}</td>
-      </tr> -->
+      <TableRow v-for="record in records"
+        :key="record._id"
+        :fields="model.fields"
+        :data="record"
+      />
     </tbody>
   </table>
 </template>
 
 <script>
+  import { fetchModelRecords, populateModel } from "../../API";
+  import TableRow from "./TableRow";
+
   export default {
     name: 'PierCMSList',
     props: {
@@ -56,10 +68,12 @@
         if(!this.model || !this.model._id)
           return console.log("No model found!");
 
-        // this.fetchingRecords = true;
-        // const res = await browseModel(this.model.name);
-        // this.records = res;
-        // this.fetchingRecords = false;
+        this.fetchingRecords = true;
+        const res = await fetchModelRecords(this.model.name);
+        this.records = res;
+        this.fetchingRecords = false;
+
+        console.log("Records: ", res);
       },
       async populate(){
         // this.populating = true;
@@ -68,5 +82,8 @@
         // this.populating = false;
       },
     },
+    components: {
+      TableRow
+    }
   }
 </script>
