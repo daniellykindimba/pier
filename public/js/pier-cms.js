@@ -21183,13 +21183,14 @@ var DeleteRow = function DeleteRow() {
 /*!***************************************************!*\
   !*** ./resources/pier-cms/store/actions/index.js ***!
   \***************************************************/
-/*! exports provided: setModels, setSelectedModel, fetchRecords, setSelectedRecord, createRecord, updateModel, removeRecord */
+/*! exports provided: setModels, setSelectedModel, populateRecords, fetchRecords, setSelectedRecord, createRecord, updateModel, removeRecord */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setModels", function() { return setModels; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSelectedModel", function() { return setSelectedModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "populateRecords", function() { return populateRecords; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRecords", function() { return fetchRecords; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSelectedRecord", function() { return setSelectedRecord; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRecord", function() { return createRecord; });
@@ -21217,7 +21218,7 @@ var setSelectedModel = function setSelectedModel(_ref2, model) {
   var commit = _ref2.commit;
   commit('SET_SELECTED_MODEL', model);
 };
-var fetchRecords = /*#__PURE__*/function () {
+var populateRecords = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref3) {
     var state, commit, records;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -21234,14 +21235,14 @@ var fetchRecords = /*#__PURE__*/function () {
             return _context.abrupt("return");
 
           case 3:
-            commit('FETCHING_RECORDS', true);
+            commit('POPULATING_RECORDS', true);
             _context.prev = 4;
             _context.next = 7;
-            return Object(_API__WEBPACK_IMPORTED_MODULE_2__["fetchModelRecords"])(state.selectedModelName);
+            return Object(_API__WEBPACK_IMPORTED_MODULE_2__["populateModel"])(state.selectedModelName);
 
           case 7:
             records = _context.sent;
-            commit('FETCHING_RECORDS', false);
+            commit('POPULATING_RECORDS', false);
             commit('SET_RECORDS', records);
             _context.next = 16;
             break;
@@ -21249,8 +21250,8 @@ var fetchRecords = /*#__PURE__*/function () {
           case 12:
             _context.prev = 12;
             _context.t0 = _context["catch"](4);
-            Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["handleNetworkError"])(_context.t0, "Error fetching ".concat(state.selectedModelName, ":"));
-            commit('FETCHING_RECORDS', false);
+            Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["handleNetworkError"])(_context.t0, "Error populating ".concat(state.selectedModelName, ":"));
+            commit('POPULATING_RECORDS', false);
 
           case 16:
           case "end":
@@ -21260,29 +21261,76 @@ var fetchRecords = /*#__PURE__*/function () {
     }, _callee, null, [[4, 12]]);
   }));
 
-  return function fetchRecords(_x) {
+  return function populateRecords(_x) {
     return _ref4.apply(this, arguments);
   };
 }();
-var setSelectedRecord = function setSelectedRecord(_ref5, recordId) {
-  var commit = _ref5.commit;
-  commit('SET_SELECTED_RECORD', recordId);
-};
-var createRecord = /*#__PURE__*/function () {
-  var _ref7 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref6, data) {
-    var commit, state, record, records;
+var fetchRecords = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref5) {
+    var state, commit, records;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            commit = _ref6.commit, state = _ref6.state;
+            state = _ref5.state, commit = _ref5.commit;
+
+            if (state.selectedModelName) {
+              _context2.next = 3;
+              break;
+            }
+
+            return _context2.abrupt("return");
+
+          case 3:
+            commit('FETCHING_RECORDS', true);
+            _context2.prev = 4;
+            _context2.next = 7;
+            return Object(_API__WEBPACK_IMPORTED_MODULE_2__["fetchModelRecords"])(state.selectedModelName);
+
+          case 7:
+            records = _context2.sent;
+            commit('FETCHING_RECORDS', false);
+            commit('SET_RECORDS', records);
+            _context2.next = 16;
+            break;
+
+          case 12:
+            _context2.prev = 12;
+            _context2.t0 = _context2["catch"](4);
+            Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["handleNetworkError"])(_context2.t0, "Error fetching ".concat(state.selectedModelName, ":"));
+            commit('FETCHING_RECORDS', false);
+
+          case 16:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[4, 12]]);
+  }));
+
+  return function fetchRecords(_x2) {
+    return _ref6.apply(this, arguments);
+  };
+}();
+var setSelectedRecord = function setSelectedRecord(_ref7, recordId) {
+  var commit = _ref7.commit;
+  commit('SET_SELECTED_RECORD', recordId);
+};
+var createRecord = /*#__PURE__*/function () {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref8, data) {
+    var commit, state, record, records;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            commit = _ref8.commit, state = _ref8.state;
             commit('SAVING_RECORD', true);
-            _context2.prev = 2;
-            _context2.next = 5;
+            _context3.prev = 2;
+            _context3.next = 5;
             return Object(_API__WEBPACK_IMPORTED_MODULE_2__["insertRecord"])(state.selectedModelName, data);
 
           case 5:
-            record = _context2.sent;
+            record = _context3.sent;
             commit('SAVING_RECORD', false);
             records = state.records;
             if (!records) records = [];
@@ -21290,35 +21338,35 @@ var createRecord = /*#__PURE__*/function () {
             commit('SET_RECORDS', records);
             _router__WEBPACK_IMPORTED_MODULE_3__["default"].replace("/".concat(state.selectedModelName));
             Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["showSuccessToast"])("".concat(state.selectedModelName, " created"));
-            _context2.next = 19;
+            _context3.next = 19;
             break;
 
           case 15:
-            _context2.prev = 15;
-            _context2.t0 = _context2["catch"](2);
-            Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["handleNetworkError"])(_context2.t0, "Error creating ".concat(state.selectedModelName, ":"));
+            _context3.prev = 15;
+            _context3.t0 = _context3["catch"](2);
+            Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["handleNetworkError"])(_context3.t0, "Error creating ".concat(state.selectedModelName, ":"));
             commit('SAVING_RECORD', false);
 
           case 19:
           case "end":
-            return _context2.stop();
+            return _context3.stop();
         }
       }
-    }, _callee2, null, [[2, 15]]);
+    }, _callee3, null, [[2, 15]]);
   }));
 
-  return function createRecord(_x2, _x3) {
-    return _ref7.apply(this, arguments);
+  return function createRecord(_x3, _x4) {
+    return _ref9.apply(this, arguments);
   };
 }();
 var updateModel = /*#__PURE__*/function () {
-  var _ref9 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref8, updatedRecord) {
+  var _ref11 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref10, updatedRecord) {
     var commit, state;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
       while (1) {
-        switch (_context3.prev = _context3.next) {
+        switch (_context4.prev = _context4.next) {
           case 0:
-            commit = _ref8.commit, state = _ref8.state;
+            commit = _ref10.commit, state = _ref10.state;
             commit('SAVING_RECORD', true);
 
             try {// await saveModel(state.selectedModelName, updatedRecord);
@@ -21340,68 +21388,68 @@ var updateModel = /*#__PURE__*/function () {
 
           case 3:
           case "end":
-            return _context3.stop();
+            return _context4.stop();
         }
       }
-    }, _callee3);
+    }, _callee4);
   }));
 
-  return function updateModel(_x4, _x5) {
-    return _ref9.apply(this, arguments);
+  return function updateModel(_x5, _x6) {
+    return _ref11.apply(this, arguments);
   };
 }();
 var removeRecord = /*#__PURE__*/function () {
-  var _ref11 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref10, recordId) {
+  var _ref13 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref12, recordId) {
     var commit, state, records;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
       while (1) {
-        switch (_context4.prev = _context4.next) {
+        switch (_context5.prev = _context5.next) {
           case 0:
-            commit = _ref10.commit, state = _ref10.state;
+            commit = _ref12.commit, state = _ref12.state;
 
             if (state.selectedModelName) {
-              _context4.next = 3;
+              _context5.next = 3;
               break;
             }
 
-            return _context4.abrupt("return");
+            return _context5.abrupt("return");
 
           case 3:
             commit('DELETING_RECORD', true);
-            _context4.prev = 4;
-            _context4.next = 7;
+            _context5.prev = 4;
+            _context5.next = 7;
             return Object(_API__WEBPACK_IMPORTED_MODULE_2__["deleteRecord"])(state.selectedModelName, recordId);
 
           case 7:
             commit('DELETING_RECORD', false);
             records = state.records;
             if (!records) records = [];
-            records = records.filter(function (_ref12) {
-              var _id = _ref12._id;
+            records = records.filter(function (_ref14) {
+              var _id = _ref14._id;
               return _id !== recordId;
             });
             commit('SET_RECORDS', records);
             _router__WEBPACK_IMPORTED_MODULE_3__["default"].replace("/".concat(state.selectedModelName));
             Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["showSuccessToast"])("".concat(state.selectedModelName, " deleted"));
-            _context4.next = 20;
+            _context5.next = 20;
             break;
 
           case 16:
-            _context4.prev = 16;
-            _context4.t0 = _context4["catch"](4);
-            Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["handleNetworkError"])(_context4.t0, "Error deleting ".concat(state.selectedModelName, ":"));
+            _context5.prev = 16;
+            _context5.t0 = _context5["catch"](4);
+            Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["handleNetworkError"])(_context5.t0, "Error deleting ".concat(state.selectedModelName, ":"));
             commit('DELETING_RECORD', false);
 
           case 20:
           case "end":
-            return _context4.stop();
+            return _context5.stop();
         }
       }
-    }, _callee4, null, [[4, 16]]);
+    }, _callee5, null, [[4, 16]]);
   }));
 
-  return function removeRecord(_x6, _x7) {
-    return _ref11.apply(this, arguments);
+  return function removeRecord(_x7, _x8) {
+    return _ref13.apply(this, arguments);
   };
 }();
 
@@ -21477,6 +21525,9 @@ __webpack_require__.r(__webpack_exports__);
   SAVING_RECORD: function SAVING_RECORD(state, status) {
     state.savingRecord = status;
   },
+  POPULATING_RECORDS: function POPULATING_RECORDS(state, status) {
+    state.populatingRecords = status;
+  },
   FETCHING_RECORDS: function FETCHING_RECORDS(state, status) {
     state.fetchingRecords = status;
   },
@@ -21499,6 +21550,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   models: null,
   selectedModelName: null,
+  populatingRecords: false,
   fetchingRecords: false,
   records: null,
   selectedRecordId: null,

@@ -359,6 +359,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -376,11 +394,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.fetchRecords();
   },
   data: function data() {
-    return {
-      populating: false
-    };
+    return {};
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])(['records', 'fetchingRecords'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])(['records', 'fetchingRecords', 'populatingRecords'])),
   watch: {
     model: function model() {
       this.fetchRecords();
@@ -405,13 +421,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee);
       }))();
     },
-    populate: function populate() {// this.$store.dispatch('populateRecords');
+    populateRecords: function populateRecords() {
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                _this2.$store.dispatch('populateRecords');
+
+              case 1:
               case "end":
                 return _context2.stop();
             }
@@ -850,13 +870,53 @@ var render = function() {
           _vm._v(" "),
           _c(
             "tbody",
-            _vm._l(_vm.records, function(record) {
-              return _c("TableRow", {
-                key: record._id,
-                attrs: { fields: _vm.model.fields, data: record }
+            [
+              _c("tr", [
+                !_vm.records.length
+                  ? _c(
+                      "td",
+                      {
+                        staticClass: "text-center",
+                        attrs: { colspan: _vm.model.fields.length + 1 }
+                      },
+                      [
+                        _vm.populatingRecords
+                          ? _c("Loader", { attrs: { size: 90 } })
+                          : _c("div", { staticClass: "py-3" }, [
+                              _c("p", { staticClass: "block mb-2" }, [
+                                _vm._v(
+                                  "\n            This model doesn't contain any records yet.\n          "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mb-2 rounded-btn border border-blue-800 text-blue-800 mt-0 ml-3",
+                                  on: { click: _vm.populateRecords }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n            Populate sample data\n          "
+                                  )
+                                ]
+                              )
+                            ])
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.records, function(record) {
+                return _c("TableRow", {
+                  key: record._id,
+                  attrs: { fields: _vm.model.fields, data: record }
+                })
               })
-            }),
-            1
+            ],
+            2
           )
         ]
       )

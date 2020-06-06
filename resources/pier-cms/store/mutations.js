@@ -14,6 +14,9 @@ export default {
     SAVING_RECORD(state, status){
         state.savingRecord = status;
     },
+    POPULATING_RECORDS(state, status){
+        state.populatingRecords = status;
+    },
     FETCHING_RECORDS(state, status){
         state.fetchingRecords = status;
     },

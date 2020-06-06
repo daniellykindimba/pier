@@ -68,7 +68,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "container" } }, [
     _c("aside", { staticClass: "flex-shrink-0" }, [
-      _vm._m(0),
+      _c(
+        "div",
+        { staticClass: "long-header bg-blue-100 text-blue-800 tracking-wider" },
+        [_vm._v("\n            Pier CMS\n        ")]
+      ),
       _vm._v(" "),
       _c(
         "ul",
@@ -95,25 +99,7 @@ var render = function() {
     _c("main", { staticClass: "flex-1 h-screen" }, [_c("router-view")], 1)
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "long-header bg-blue-100 text-blue-800 tracking-wider" },
-      [
-        _c("img", {
-          staticClass: "mb-2",
-          staticStyle: { height: "50px", "margin-left": "-8px" },
-          attrs: { src: "img/logo.png", alt: "" }
-        }),
-        _vm._v("\n            Global Compact\n        ")
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

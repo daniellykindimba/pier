@@ -25,6 +25,24 @@
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <td v-if="!records.length" :colspan="model.fields.length + 1"
+          class="text-center">
+
+          <Loader v-if="populatingRecords" :size="90" />
+
+          <div class="py-3" v-else>
+            <p class="block mb-2">
+              This model doesn't contain any records yet.
+            </p>
+            <button class="mb-2 rounded-btn border border-blue-800 text-blue-800 mt-0 ml-3"
+              @click="populateRecords">
+              Populate sample data
+            </button>
+          </div>
+        </td>
+      </tr>
+
       <TableRow v-for="record in records"
         :key="record._id"
         :fields="model.fields"
@@ -54,11 +72,11 @@
     },
     data() {
       return {
-        populating: false,
+        
       };
     },
     computed: {
-      ...mapState(['records', 'fetchingRecords'])
+      ...mapState(['records', 'fetchingRecords', 'populatingRecords'])
     },
     watch: {
       model: function(){
@@ -69,8 +87,8 @@
       async fetchRecords(){
         this.$store.dispatch('fetchRecords');
       },
-      async populate(){
-        // this.$store.dispatch('populateRecords');
+      async populateRecords(){
+        this.$store.dispatch('populateRecords');
       },
     },
     components: {

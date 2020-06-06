@@ -1,5 +1,5 @@
 import { handleNetworkError, showSuccessToast } from '../../Utils';
-import { fetchModelRecords, insertRecord, deleteRecord } from '../../API';
+import { fetchModelRecords, insertRecord, deleteRecord, populateModel } from '../../API';
 import router from '../../router';
 
 export const setModels = ({ commit }, models) => {
@@ -8,6 +8,21 @@ export const setModels = ({ commit }, models) => {
 
 export const setSelectedModel = ({ commit }, model) => {
     commit('SET_SELECTED_MODEL', model);
+}
+
+export const populateRecords = async ({ state, commit }) => {
+    if(!state.selectedModelName)
+        return;
+
+    commit('POPULATING_RECORDS', true);
+    try {
+        const records = await populateModel(state.selectedModelName);
+        commit('POPULATING_RECORDS', false);
+        commit('SET_RECORDS', records);
+    } catch (error) {
+        handleNetworkError(error, `Error populating ${state.selectedModelName}:`);
+        commit('POPULATING_RECORDS', false);
+    }
 }
 
 export const fetchRecords = async ({ state, commit }) => {
