@@ -94,6 +94,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -344,7 +345,8 @@ var render = function() {
                                   ? "orange.200"
                                   : "#999",
                               borderRadius: "0",
-                              paddingLeft: "1.8rem"
+                              paddingLeft: "1.8rem",
+                              disabled: _vm.$route.path === "/models/add"
                             },
                             on: {
                               click: function($event) {

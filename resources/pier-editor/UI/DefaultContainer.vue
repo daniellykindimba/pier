@@ -48,6 +48,7 @@
               :color="modelBeingEdited && model._id === modelBeingEdited._id ? 'orange.200' : '#999'"
               borderRadius="0"
               paddingLeft="1.8rem"
+              :disabled="$route.path === '/models/add'"
               @click="$router.push(`/models/${model._id}/details`)"
             >
               <div class="text-left" style="width: 100%;">
