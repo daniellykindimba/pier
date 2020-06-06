@@ -22,7 +22,20 @@ export default [
     {
       label: 'Date',
       value: 'date',
-      placeholder: 'E.g. dob'
+      placeholder: 'E.g. dob',
+      options: {
+        type: {
+          label: "Type of date",
+          type: "radio",
+          choices: ["DOB", "Event"],
+          defaultValue: "DOB"
+        },
+        includeTime: {
+          label: "Include Time",
+          type: "toggle",
+          defaultValue: false
+        }
+      }
     },
     {
       label: 'Short Text',
@@ -36,7 +49,7 @@ export default [
       options: {
         wysiwyg: {
           label: "Is wysiwyg field",
-          type: Boolean,
+          type: "toggle",
           defaultValue: false
         }
       }
@@ -53,7 +66,7 @@ export default [
       options: {
         face: {
           label: "Is a picture of person",
-          type: Boolean,
+          type: "toggle",
           defaultValue: false
         }
       }
@@ -90,8 +103,11 @@ export default [
       options: {
         outOf: {
           label: "Rating out of",
-          type: "choice",
-          choices: ["5", "10"],
+          type: "radio",
+          choices: [
+            {label: "FIVE", value: "5"}, 
+            {label: "TEN", value: "10"},
+          ],
           defaultValue: "5"
         }
       }

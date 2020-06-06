@@ -152,13 +152,22 @@ export default {
       const data = {
         name: this.name.replace(/ /g,""),
         fields: this.fields.map(field => {
-          if(!Object.keys(field.meta).length)
-            delete field.meta;
-
-          return {
+          let fieldDetails = {
             ...field,
             type: field.type.value,
+          };
+
+          const fieldOptions = {...field.type.options};
+          const fieldMeta = {};
+          for (let [key, option] of Object.entries(fieldOptions)) {
+            if(option.value !== undefined)
+              fieldMeta[key] = option.value;
           }
+
+          if(Object.keys(fieldOptions).length)
+            fieldDetails.meta = fieldMeta;
+
+          return fieldDetails;
         })
       }
 

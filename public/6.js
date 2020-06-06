@@ -270,6 +270,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -303,6 +307,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['models', 'fetchingModels'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['modelBeingEdited'])),
   watch: {
+    models: function models(_models) {
+      if (_models && !this.modelBeingEdited) {
+        this.$router.replace('/models');
+      }
+    },
     modelId: function modelId(_modelId) {
       this.$store.dispatch('setModelBeingEdited', _modelId);
     },
@@ -584,19 +593,14 @@ var render = function() {
       ]),
       _vm._v(" "),
       !_vm.model || !_vm.model._id || _vm.fetchingModels
-        ? _c(
-            "c-box",
-            {
-              attrs: {
-                d: "flex",
-                padding: "6",
-                "align-items": "center",
-                "justify-content": "center"
-              }
-            },
-            [_c("c-circular-progress", { attrs: { "is-indeterminate": "" } })],
-            1
-          )
+        ? _c("c-box", {
+            attrs: {
+              d: "flex",
+              padding: "6",
+              "align-items": "center",
+              "justify-content": "center"
+            }
+          })
         : _c(
             "c-tabs",
             { attrs: { "variant-color": "orange" } },
@@ -606,7 +610,9 @@ var render = function() {
                 [
                   _c("c-tab", [_vm._v("Structure")]),
                   _vm._v(" "),
-                  _c("c-tab", [_vm._v("Records")])
+                  _c("c-tab", [_vm._v("Listing Design")]),
+                  _vm._v(" "),
+                  _c("c-tab", [_vm._v("Form Design")])
                 ],
                 1
               ),
@@ -626,11 +632,9 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c(
-                    "c-tab-panel",
-                    [_c("Records", { attrs: { model: _vm.modelBeingEdited } })],
-                    1
-                  )
+                  _c("c-tab-panel", [_c("c-text", [_vm._v("Coming soon")])], 1),
+                  _vm._v(" "),
+                  _c("c-tab-panel", [_c("c-text", [_vm._v("Coming soon")])], 1)
                 ],
                 1
               )

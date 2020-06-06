@@ -367,7 +367,20 @@ __webpack_require__.r(__webpack_exports__);
 }, {
   label: 'Date',
   value: 'date',
-  placeholder: 'E.g. dob'
+  placeholder: 'E.g. dob',
+  options: {
+    type: {
+      label: "Type of date",
+      type: "radio",
+      choices: ["DOB", "Event"],
+      defaultValue: "DOB"
+    },
+    includeTime: {
+      label: "Include Time",
+      type: "toggle",
+      defaultValue: false
+    }
+  }
 }, {
   label: 'Short Text',
   value: 'string',
@@ -379,7 +392,7 @@ __webpack_require__.r(__webpack_exports__);
   options: {
     wysiwyg: {
       label: "Is wysiwyg field",
-      type: Boolean,
+      type: "toggle",
       defaultValue: false
     }
   }
@@ -394,7 +407,7 @@ __webpack_require__.r(__webpack_exports__);
   options: {
     face: {
       label: "Is a picture of person",
-      type: Boolean,
+      type: "toggle",
       defaultValue: false
     }
   }
@@ -425,8 +438,14 @@ __webpack_require__.r(__webpack_exports__);
   options: {
     outOf: {
       label: "Rating out of",
-      type: "choice",
-      choices: ["5", "10"],
+      type: "radio",
+      choices: [{
+        label: "FIVE",
+        value: "5"
+      }, {
+        label: "TEN",
+        value: "10"
+      }],
       defaultValue: "5"
     }
   }

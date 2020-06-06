@@ -300,7 +300,7 @@ class PierMigration extends Model{
                 break;
                 
             case 'date':
-                $processed = $table->timestamp($field);
+                $processed = $table->timestamp($field)->useCurrent();
                 break;
             
             default:
@@ -308,7 +308,7 @@ class PierMigration extends Model{
                 break;
         }
 
-        if($nullable)
+        if($type !== 'date' && $nullable)
             $processed->nullable();
     }
 }

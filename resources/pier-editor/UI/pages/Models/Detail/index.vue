@@ -5,13 +5,14 @@
     </c-text>
 
     <c-box d="flex" v-if="!model || !model._id || fetchingModels" padding="6" align-items="center" justify-content="center">
-      <c-circular-progress is-indeterminate />
+      <!-- <c-circular-progress is-indeterminate /> -->
     </c-box>
 
     <c-tabs variant-color="orange" v-else>
       <c-tab-list>
         <c-tab>Structure</c-tab>
-        <c-tab>Records</c-tab>
+        <c-tab>Listing Design</c-tab>
+        <c-tab>Form Design</c-tab>
       </c-tab-list>
 
       <c-box height="2rem"/>
@@ -21,7 +22,10 @@
           <Structure :model="modelBeingEdited" />
         </c-tab-panel>
         <c-tab-panel>
-            <Records :model="modelBeingEdited" />
+            <c-text>Coming soon</c-text>
+        </c-tab-panel>
+        <c-tab-panel>
+            <c-text>Coming soon</c-text>
         </c-tab-panel>
       </c-tab-panels>
     </c-tabs>
@@ -80,6 +84,11 @@ export default {
     ...mapGetters(['modelBeingEdited'])
   },
   watch: {
+    models: function(models){
+      if(models && !this.modelBeingEdited){
+        this.$router.replace('/models');
+      }
+    },
     modelId: function(modelId){
       this.$store.dispatch('setModelBeingEdited', modelId);
     },

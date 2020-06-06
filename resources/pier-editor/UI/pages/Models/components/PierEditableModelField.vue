@@ -129,9 +129,8 @@
                 </c-form-control>
 
                 <PierModelFieldOption
-                  v-for="(option, key) in fieldOptions" :key="key"
-                  :option="option"
-                  v-model="field.meta[key]"
+                  v-for="(option, key) in field.type.options" :key="key"
+                  v-model="field.type.options[key]"
                 />
 
                 <c-form-control mb="6">
@@ -200,23 +199,12 @@ export default {
     selected: Boolean, 
     value: Object
   },
-  mounted() {
-      if(this.value){
-        const {label, type} = this.value;  
-        this.field = {
-            label: label || "",
-            label: type || {}
-        };
-      }
-  },
   data() {
     return {
       dbFieldTypes,
-      fieldOptions: {},
       field: {
         label: "",
-        type: {},
-        meta: {}
+        type: {}
       }
     };
   },
@@ -231,24 +219,19 @@ export default {
   },
   methods: {
     setFieldType(type) {
+      const clonedType = JSON.parse(JSON.stringify(type));
       this.field = {
         label: "",
-        type,
-        required: true,
-        meta: {}
+        type: clonedType,
+        required: true
       };
       this.focusLabelInput();
-      this.fieldOptions = type.options;
     },
     focusLabelInput() {
       this.$nextTick(() => {
         this.$el.querySelector("#fieldLabel").focus();
       })
     },
-    requireChanged($e){
-      // field.required = $e.target.checked; 
-      console.log('Switch changed: ', $e)
-    }
   },
   components: {
     CPseudoBox,

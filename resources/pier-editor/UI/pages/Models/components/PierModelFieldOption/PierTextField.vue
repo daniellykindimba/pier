@@ -29,9 +29,9 @@ export default {
     },
     mounted() {
         if(this.option){
-            const {defaultValue} = this.option;  
-            if(defaultValue !== undefined)
-                this.val = defaultValue;
+            const {value} = this.option;  
+            if(value !== undefined)
+                this.val = value;
         }
     },
     data() {
