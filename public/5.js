@@ -51,21 +51,19 @@ __webpack_require__.r(__webpack_exports__);
   name: "TableColumn",
   props: ['field', 'value'],
   render: function render(h) {
-    var field = this.field;
-    var value = this.value;
-    var trimmedValue = "";
+    function renderColumn(value, type, meta) {
+      var trimmedValue = "";
 
-    if (value && value.substring) {
-      trimmedValue += value.substring(0, 20).trim();
-      trimmedValue += value.length > 20 ? '...' : '';
-    }
+      if (value && value.substring) {
+        trimmedValue += value.substring(0, 20).trim();
+        trimmedValue += value.length > 20 ? '...' : '';
+      }
 
-    function renderColumn() {
-      switch (field.type) {
+      switch (type) {
         case 'image':
           {
             var _className = "pier-col-image";
-            if (field.meta && field.meta.face) _className += " face";
+            if (meta && meta.face) _className += " face";
             return h("img", {
               "class": _className,
               "attrs": {
@@ -115,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 
         case 'rating':
           {
-            var fullRating = Array(parseInt(field.meta.outOf)).fill(2).map(function (_, index) {
+            var fullRating = Array(parseInt(meta.outOf)).fill(2).map(function (_, index) {
               return index + 1;
             });
             var stars = fullRating.map(function (index) {
@@ -224,11 +222,23 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
 
+    var _this$field = this.field,
+        type = _this$field.type,
+        meta = _this$field.meta;
+    var value = this.value;
     var className = "pier-td";
-    className += " ".concat(field.type);
+    className += " ".concat(type);
+    className += meta ? " ".concat(meta.type) : '';
+    var column;
+
+    if (type === 'reference') {
+      type = meta.type;
+      value = value[meta.field];
+    }
+
     return h("td", {
       "class": className
-    }, [renderColumn()]);
+    }, [renderColumn(value, type, meta)]);
   }
 });
 
@@ -309,8 +319,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _API__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../API */ "./resources/pier-cms/API/index.js");
-/* harmony import */ var _TableRow__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TableRow */ "./resources/pier-cms/UI/List/TableRow.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _Utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Utils */ "./resources/pier-cms/Utils/index.js");
+/* harmony import */ var _TableRow__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TableRow */ "./resources/pier-cms/UI/List/TableRow.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -377,6 +388,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+
 
 
 
@@ -391,15 +404,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   mounted: function mounted() {
-    this.fetchRecords();
+    if (this.model) this.fetchRecords();
   },
   data: function data() {
     return {};
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])(['records', 'fetchingRecords', 'populatingRecords'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapState"])(['records', 'fetchingRecords', 'populatingRecords'])),
   watch: {
-    model: function model() {
-      this.fetchRecords();
+    model: function model(newValue) {
+      if (newValue) this.fetchRecords();
     }
   },
   methods: {
@@ -407,13 +420,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var fields, referenceFields, referenceParams;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.$store.dispatch('fetchRecords');
+                if (_this.model.fields) {
+                  _context.next = 2;
+                  break;
+                }
 
-              case 1:
+                return _context.abrupt("return");
+
+              case 2:
+                fields = _this.model.fields;
+                referenceFields = fields.filter(function (_ref) {
+                  var type = _ref.type;
+                  return type === "reference";
+                });
+                referenceParams = [];
+                referenceFields.forEach(function (_ref2) {
+                  var label = _ref2.label,
+                      meta = _ref2.meta;
+                  var pascalLabel = Object(_Utils__WEBPACK_IMPORTED_MODULE_2__["toPascalCase"])(label);
+                  var param = "with".concat(Object(_Utils__WEBPACK_IMPORTED_MODULE_2__["toPascalCase"])(label));
+                  param += pascalLabel !== meta.model ? 'From' + meta.model : '';
+                  referenceParams.push(param);
+                });
+
+                _this.$store.dispatch('fetchRecords', referenceParams.join("&"));
+
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -441,7 +478,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   components: {
-    TableRow: _TableRow__WEBPACK_IMPORTED_MODULE_2__["default"]
+    TableRow: _TableRow__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 });
 
@@ -844,7 +881,14 @@ var render = function() {
                 _vm._l(_vm.model.fields, function(field, index) {
                   return _c(
                     "th",
-                    { key: index, class: ["pier-th", field.type] },
+                    {
+                      key: index,
+                      class: [
+                        "pier-th",
+                        field.type,
+                        field.meta ? field.meta.type : ""
+                      ]
+                    },
                     [
                       _vm._v(
                         "\n        " +

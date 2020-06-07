@@ -15,7 +15,8 @@
     style="border-top: none !important; width:100%; min-width: 500px;">
     <thead>
       <tr>
-        <th :class="['pier-th', field.type]" v-for="(field, index) in model.fields" 
+        <th :class="['pier-th', field.type, field.meta ? field.meta.type : '']" 
+          v-for="(field, index) in model.fields" 
           :key="index">
           {{ field.label.replace(/_/g, ' ') }}
         </th>
@@ -54,6 +55,7 @@
 
 <script>
   import { fetchModelRecords, populateModel } from "../../API";
+  import { toPascalCase } from "../../Utils";
   import TableRow from "./TableRow";
   import { mapState } from 'vuex';
 
@@ -68,7 +70,8 @@
       }
     },
     mounted(){
-      this.fetchRecords();
+      if(this.model)
+        this.fetchRecords();
     },
     data() {
       return {
@@ -79,13 +82,27 @@
       ...mapState(['records', 'fetchingRecords', 'populatingRecords'])
     },
     watch: {
-      model: function(){
-        this.fetchRecords();
+      model: function(newValue){
+        if(newValue)
+          this.fetchRecords();
       },
     },
     methods: {
       async fetchRecords(){
-        this.$store.dispatch('fetchRecords');
+        if(!this.model.fields)
+          return;
+
+        const fields = this.model.fields;
+        const referenceFields = fields.filter(({type}) => type === "reference");
+        let referenceParams = [];
+        referenceFields.forEach(({label, meta}) => {
+          const pascalLabel = toPascalCase(label);
+          let param = `with${toPascalCase(label)}`;
+          param += pascalLabel !== meta.model ? 'From' + meta.model : '';
+          referenceParams.push(param);
+        });
+        
+        this.$store.dispatch('fetchRecords', referenceParams.join("&"));
       },
       async populateRecords(){
         this.$store.dispatch('populateRecords');

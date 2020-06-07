@@ -6,9 +6,13 @@ export const populateModel = async (modelName) => {
     return post(`/model/${modelName}/populate`, null, token);
 };
 
-export const fetchModelRecords = async (modelName) => {
+export const fetchModelRecords = async (modelName, references) => {
     // const token = await getToken();
-    return get(`/api/${modelName}`, token);
+    let url = `/api/${modelName}`;
+    if(references && references.length)
+        url += "?" + references;
+
+    return get(url, token);
 };
 
 export const deleteRecord = async (modelName, rowId) => {

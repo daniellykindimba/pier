@@ -39,19 +39,17 @@ export default {
     name: "TableColumn",
     props: [ 'field', 'value' ],
     render (h) {
-        const field = this.field;
-        const value = this.value;
-        let trimmedValue = "";
-        if(value && value.substring){
-            trimmedValue += value.substring(0, 20).trim();
-            trimmedValue += value.length > 20 ? '...' : '';
-        }
-
-        function renderColumn(){
-            switch (field.type) {
+        function renderColumn(value, type, meta){
+            let trimmedValue = "";
+            if(value && value.substring){
+                trimmedValue += value.substring(0, 20).trim();
+                trimmedValue += value.length > 20 ? '...' : '';
+            }
+            
+            switch (type) {
                 case 'image':{
                     let className = "pier-col-image";
-                    if(field.meta && field.meta.face)
+                    if(meta && meta.face)
                         className += " face";
 
                     return <img class={className} src={value} />;
@@ -77,7 +75,7 @@ export default {
                 }
                 
                 case 'rating':{
-                    const fullRating = Array(parseInt(field.meta.outOf)).fill(2).map((_, index) => index + 1);
+                    const fullRating = Array(parseInt(meta.outOf)).fill(2).map((_, index) => index + 1);
                     const stars = fullRating.map((index) => {
                         if(value >= index)
                             return <svg fill="#e9b531" height="24" width="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>;
@@ -127,7 +125,7 @@ export default {
                             {trimmedValue}
                         </a>
                     );
-                    
+                
                 case 'string':
                 case 'long text':
                     return <span>{trimmedValue}</span>;
@@ -137,12 +135,23 @@ export default {
             }
         }
 
+        let {type, meta} = this.field;
+        let value = this.value;
+
         let className = "pier-td";
-        className += ` ${field.type}`;
+        className += ` ${type}`;
+        className += meta ? ` ${meta.type}` : '';
+
+        let column;
+
+        if(type === 'reference'){
+            type = meta.type;
+            value = value[meta.field]
+        }
 
         return (
             <td class={className}>
-                { renderColumn() }
+                { renderColumn(value, type, meta) }
             </td>
         );
     }

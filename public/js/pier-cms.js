@@ -20638,14 +20638,18 @@ var populateModel = /*#__PURE__*/function () {
   };
 }();
 var fetchModelRecords = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(modelName) {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(modelName, references) {
+    var url;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt("return", Object(_setup__WEBPACK_IMPORTED_MODULE_1__["get"])("/api/".concat(modelName), token));
+            // const token = await getToken();
+            url = "/api/".concat(modelName);
+            if (references && references.length) url += "?" + references;
+            return _context2.abrupt("return", Object(_setup__WEBPACK_IMPORTED_MODULE_1__["get"])(url, token));
 
-          case 1:
+          case 3:
           case "end":
             return _context2.stop();
         }
@@ -20653,7 +20657,7 @@ var fetchModelRecords = /*#__PURE__*/function () {
     }, _callee2);
   }));
 
-  return function fetchModelRecords(_x2) {
+  return function fetchModelRecords(_x2, _x3) {
     return _ref2.apply(this, arguments);
   };
 }();
@@ -20673,7 +20677,7 @@ var deleteRecord = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function deleteRecord(_x3, _x4) {
+  return function deleteRecord(_x4, _x5) {
     return _ref3.apply(this, arguments);
   };
 }();
@@ -20693,7 +20697,7 @@ var insertRecord = /*#__PURE__*/function () {
     }, _callee4);
   }));
 
-  return function insertRecord(_x5, _x6) {
+  return function insertRecord(_x6, _x7) {
     return _ref4.apply(this, arguments);
   };
 }();
@@ -20972,7 +20976,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************!*\
   !*** ./resources/pier-cms/Utils/index.js ***!
   \*******************************************/
-/*! exports provided: getYouTubeVideoIdFromUrl, handleNetworkError, showErrorToast, showSuccessToast */
+/*! exports provided: getYouTubeVideoIdFromUrl, handleNetworkError, showErrorToast, showSuccessToast, toPascalCase */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20981,6 +20985,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleNetworkError", function() { return handleNetworkError; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showErrorToast", function() { return showErrorToast; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showSuccessToast", function() { return showSuccessToast; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toPascalCase", function() { return toPascalCase; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -21031,6 +21036,13 @@ function showSuccessToast(message) {
   Vue.$toast.success(message, {
     position: 'top-right',
     duration: 3000
+  });
+}
+function toPascalCase(string) {
+  return "".concat(string).replace(new RegExp(/[-_]+/, 'g'), ' ').replace(new RegExp(/[^\w\s]/, 'g'), '').replace(new RegExp(/\s+(.)(\w+)/, 'g'), function ($1, $2, $3) {
+    return "".concat($2.toUpperCase() + $3.toLowerCase());
+  }).replace(new RegExp(/\s/, 'g'), '').replace(new RegExp(/\w/), function (s) {
+    return s.toUpperCase();
   });
 }
 
@@ -21266,7 +21278,7 @@ var populateRecords = /*#__PURE__*/function () {
   };
 }();
 var fetchRecords = /*#__PURE__*/function () {
-  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref5) {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref5, fetchParams) {
     var state, commit, records;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
@@ -21285,7 +21297,7 @@ var fetchRecords = /*#__PURE__*/function () {
             commit('FETCHING_RECORDS', true);
             _context2.prev = 4;
             _context2.next = 7;
-            return Object(_API__WEBPACK_IMPORTED_MODULE_2__["fetchModelRecords"])(state.selectedModelName);
+            return Object(_API__WEBPACK_IMPORTED_MODULE_2__["fetchModelRecords"])(state.selectedModelName, fetchParams);
 
           case 7:
             records = _context2.sent;
@@ -21308,7 +21320,7 @@ var fetchRecords = /*#__PURE__*/function () {
     }, _callee2, null, [[4, 12]]);
   }));
 
-  return function fetchRecords(_x2) {
+  return function fetchRecords(_x2, _x3) {
     return _ref6.apply(this, arguments);
   };
 }();
@@ -21355,7 +21367,7 @@ var createRecord = /*#__PURE__*/function () {
     }, _callee3, null, [[2, 15]]);
   }));
 
-  return function createRecord(_x3, _x4) {
+  return function createRecord(_x4, _x5) {
     return _ref9.apply(this, arguments);
   };
 }();
@@ -21394,7 +21406,7 @@ var updateModel = /*#__PURE__*/function () {
     }, _callee4);
   }));
 
-  return function updateModel(_x5, _x6) {
+  return function updateModel(_x6, _x7) {
     return _ref11.apply(this, arguments);
   };
 }();
@@ -21448,7 +21460,7 @@ var removeRecord = /*#__PURE__*/function () {
     }, _callee5, null, [[4, 16]]);
   }));
 
-  return function removeRecord(_x7, _x8) {
+  return function removeRecord(_x8, _x9) {
     return _ref13.apply(this, arguments);
   };
 }();

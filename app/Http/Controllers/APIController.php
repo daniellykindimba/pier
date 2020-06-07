@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class APIController extends Controller
 {
-    public function resource($model){
-        $res = PierMigration::browse($model);
+    public function resource($model, Request $request){
+        $res = PierMigration::browse($model, $request->input());
         return response()->json($res);
     }
     

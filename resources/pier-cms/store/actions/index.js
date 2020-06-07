@@ -25,13 +25,13 @@ export const populateRecords = async ({ state, commit }) => {
     }
 }
 
-export const fetchRecords = async ({ state, commit }) => {
+export const fetchRecords = async ({ state, commit }, fetchParams) => {
     if(!state.selectedModelName)
         return;
 
     commit('FETCHING_RECORDS', true);
     try {
-        const records = await fetchModelRecords(state.selectedModelName);
+        const records = await fetchModelRecords(state.selectedModelName, fetchParams);
         commit('FETCHING_RECORDS', false);
         commit('SET_RECORDS', records);
     } catch (error) {

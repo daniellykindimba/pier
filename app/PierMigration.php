@@ -22,9 +22,37 @@ class PierMigration extends Model{
         return PierMigration::find($modelId);
     }
     
-    static function browse($model){
+    static function browse($model, $params = null){
         $table_name = Str::snake($model);
-        return DB::table($table_name)->get();
+        $results = DB::table($table_name)->get();
+
+        $joinParams = Collect($params)->filter(function($value, $param){
+            return strpos($param, "with") !== false;
+        });
+
+        if(!is_null($joinParams)){
+            foreach ($joinParams as $param => $value) {
+                $param = str_replace('with', '', strtolower($param));
+
+                if(strpos($param, "from") !== false){
+                    $mixedParam = explode("from", $param);
+                    $field_name = Str::snake($mixedParam[0]);
+                    $referenced_table = Str::snake($mixedParam[1]);
+                }
+                else{
+                    $field_name = Str::snake($param);
+                    $referenced_table = $field_name;
+                }
+    
+                foreach ($results as $result) {
+                    $result->{$field_name} = DB::table($referenced_table)->where(
+                        "_id", '=', $result->{$field_name}
+                    )->first();
+                }
+            }
+        }
+        
+        return $results;
     }
     
     static function deleteEntry($model, $entryId){
@@ -118,6 +146,7 @@ class PierMigration extends Model{
         foreach($fields as $field) {
             $label = $field->label;
             $type = $field->type;
+            $meta = isset($field->meta) ? $field->meta : null;
 
             if($type == "image"){
                 try {
@@ -138,10 +167,8 @@ class PierMigration extends Model{
             }
             else if($type == "video" && is_array($videos) && count($videos) > 0)
                 $pierModel[$label] = $videos[array_rand($videos, 1)];
-            else{
-                $meta = isset($field->meta) ? $field->meta : null;
+            else
                 $pierModel[$label] = self::field_generator($type, $meta);
-            }
                 
         };
 
