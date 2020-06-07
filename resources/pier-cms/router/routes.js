@@ -1,7 +1,11 @@
 const PierCMSWrapper = () => import('../UI/PierCMSWrapper');
-const PierCMS = () => import('../UI/PierCMS');
+const PierCMSList = () => import('../UI/PierCMS');
+const Detail = () => import('../UI/Detail');
 const AddRow = () => import('../UI/AddRow');
 const DeleteRow = () => import('../UI/DeleteRow');
+const PierCMSContent = {
+    template: `<router-view />`
+};
 
 export default [
     {
@@ -11,35 +15,37 @@ export default [
         children: [
             {
                 path: '/:modelName',
+                redirect: '/:modelName/list/',
                 name: 'Model',
-                component: PierCMS,
-                props: true,
+                component: PierCMSContent,
                 children: [
                     {
-                        path: '/:modelName/add',
-                        name: 'Add Row',
-                        component: AddRow
+                        path: '/:modelName/list/',
+                        name: 'Model List',
+                        component: PierCMSList,
+                        props: true,
+                        children: [
+                            {
+                                path: '/:modelName/list/add',
+                                name: 'Add Row',
+                                component: AddRow
+                            },
+                            {
+                                path: '/:modelName/list/:rowId/delete',
+                                name: 'Delete Row',
+                                component: DeleteRow,
+                                props: true
+                            }
+                        ]
                     },
                     {
-                        path: '/:modelName/:rowId/delete',
-                        name: 'Delete Row',
-                        component: DeleteRow,
+                        path: '/:modelName/detail/:rowId/',
+                        name: 'View Row',
+                        component: Detail,
                         props: true
-                    }
+                    },
                 ]
-            },
-            // {
-            //     path: 'add',
-            //     name: 'AddModel',
-            //     component: AddModel
-            // },
-            // {
-            //     path: ':modelId/details',
-            //     name: 'Model Details',
-            //     component: ModelDetail,
-            //     props: true
-            // }
-
+            }
         ]
     }
 ]

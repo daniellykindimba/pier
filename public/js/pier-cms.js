@@ -21141,52 +21141,59 @@ var router = createRouter();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var PierCMSWrapper = function PierCMSWrapper() {
-  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../UI/PierCMSWrapper */ "./resources/pier-cms/UI/PierCMSWrapper.vue"));
+  return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../UI/PierCMSWrapper */ "./resources/pier-cms/UI/PierCMSWrapper.vue"));
 };
 
-var PierCMS = function PierCMS() {
-  return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../UI/PierCMS */ "./resources/pier-cms/UI/PierCMS.vue"));
+var PierCMSList = function PierCMSList() {
+  return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../UI/PierCMS */ "./resources/pier-cms/UI/PierCMS.vue"));
+};
+
+var Detail = function Detail() {
+  return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ../UI/Detail */ "./resources/pier-cms/UI/Detail/index.vue"));
 };
 
 var AddRow = function AddRow() {
-  return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ../UI/AddRow */ "./resources/pier-cms/UI/AddRow/index.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../UI/AddRow */ "./resources/pier-cms/UI/AddRow/index.vue"));
 };
 
 var DeleteRow = function DeleteRow() {
-  return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../UI/DeleteRow */ "./resources/pier-cms/UI/DeleteRow.vue"));
+  return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../UI/DeleteRow */ "./resources/pier-cms/UI/DeleteRow.vue"));
 };
 
+var PierCMSContent = {
+  template: "<router-view />"
+};
 /* harmony default export */ __webpack_exports__["default"] = ([{
   path: '/',
   name: 'PierCMS',
   component: PierCMSWrapper,
   children: [{
     path: '/:modelName',
+    redirect: '/:modelName/list/',
     name: 'Model',
-    component: PierCMS,
-    props: true,
+    component: PierCMSContent,
     children: [{
-      path: '/:modelName/add',
-      name: 'Add Row',
-      component: AddRow
+      path: '/:modelName/list/',
+      name: 'Model List',
+      component: PierCMSList,
+      props: true,
+      children: [{
+        path: '/:modelName/list/add',
+        name: 'Add Row',
+        component: AddRow
+      }, {
+        path: '/:modelName/list/:rowId/delete',
+        name: 'Delete Row',
+        component: DeleteRow,
+        props: true
+      }]
     }, {
-      path: '/:modelName/:rowId/delete',
-      name: 'Delete Row',
-      component: DeleteRow,
+      path: '/:modelName/detail/:rowId/',
+      name: 'View Row',
+      component: Detail,
       props: true
     }]
-  } // {
-  //     path: 'add',
-  //     name: 'AddModel',
-  //     component: AddModel
-  // },
-  // {
-  //     path: ':modelId/details',
-  //     name: 'Model Details',
-  //     component: ModelDetail,
-  //     props: true
-  // }
-  ]
+  }]
 }]);
 
 /***/ }),
@@ -21278,15 +21285,15 @@ var populateRecords = /*#__PURE__*/function () {
   };
 }();
 var fetchRecords = /*#__PURE__*/function () {
-  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref5, fetchParams) {
-    var state, commit, records;
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref5) {
+    var state, getters, commit, fields, referenceFields, referenceParams, records;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            state = _ref5.state, commit = _ref5.commit;
+            state = _ref5.state, getters = _ref5.getters, commit = _ref5.commit;
 
-            if (state.selectedModelName) {
+            if (!(!state.selectedModelName || !getters.selectedModel)) {
               _context2.next = 3;
               break;
             }
@@ -21294,48 +21301,62 @@ var fetchRecords = /*#__PURE__*/function () {
             return _context2.abrupt("return");
 
           case 3:
+            fields = getters.selectedModel.fields;
+            referenceFields = fields.filter(function (_ref7) {
+              var type = _ref7.type;
+              return type === "reference";
+            });
+            referenceParams = [];
+            referenceFields.forEach(function (_ref8) {
+              var label = _ref8.label,
+                  meta = _ref8.meta;
+              var pascalLabel = Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["toPascalCase"])(label);
+              var param = "with".concat(pascalLabel);
+              param += pascalLabel !== meta.model ? 'From' + meta.model : '';
+              referenceParams.push(param);
+            });
             commit('FETCHING_RECORDS', true);
-            _context2.prev = 4;
-            _context2.next = 7;
-            return Object(_API__WEBPACK_IMPORTED_MODULE_2__["fetchModelRecords"])(state.selectedModelName, fetchParams);
+            _context2.prev = 8;
+            _context2.next = 11;
+            return Object(_API__WEBPACK_IMPORTED_MODULE_2__["fetchModelRecords"])(state.selectedModelName, referenceParams.join("&"));
 
-          case 7:
+          case 11:
             records = _context2.sent;
             commit('FETCHING_RECORDS', false);
             commit('SET_RECORDS', records);
-            _context2.next = 16;
+            _context2.next = 20;
             break;
 
-          case 12:
-            _context2.prev = 12;
-            _context2.t0 = _context2["catch"](4);
+          case 16:
+            _context2.prev = 16;
+            _context2.t0 = _context2["catch"](8);
             Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["handleNetworkError"])(_context2.t0, "Error fetching ".concat(state.selectedModelName, ":"));
             commit('FETCHING_RECORDS', false);
 
-          case 16:
+          case 20:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[4, 12]]);
+    }, _callee2, null, [[8, 16]]);
   }));
 
-  return function fetchRecords(_x2, _x3) {
+  return function fetchRecords(_x2) {
     return _ref6.apply(this, arguments);
   };
 }();
-var setSelectedRecord = function setSelectedRecord(_ref7, recordId) {
-  var commit = _ref7.commit;
+var setSelectedRecord = function setSelectedRecord(_ref9, recordId) {
+  var commit = _ref9.commit;
   commit('SET_SELECTED_RECORD', recordId);
 };
 var createRecord = /*#__PURE__*/function () {
-  var _ref9 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref8, data) {
+  var _ref11 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref10, data) {
     var commit, state, record, records;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            commit = _ref8.commit, state = _ref8.state;
+            commit = _ref10.commit, state = _ref10.state;
             commit('SAVING_RECORD', true);
             _context3.prev = 2;
             _context3.next = 5;
@@ -21367,18 +21388,18 @@ var createRecord = /*#__PURE__*/function () {
     }, _callee3, null, [[2, 15]]);
   }));
 
-  return function createRecord(_x4, _x5) {
-    return _ref9.apply(this, arguments);
+  return function createRecord(_x3, _x4) {
+    return _ref11.apply(this, arguments);
   };
 }();
 var updateModel = /*#__PURE__*/function () {
-  var _ref11 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref10, updatedRecord) {
+  var _ref13 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref12, updatedRecord) {
     var commit, state;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            commit = _ref10.commit, state = _ref10.state;
+            commit = _ref12.commit, state = _ref12.state;
             commit('SAVING_RECORD', true);
 
             try {// await saveModel(state.selectedModelName, updatedRecord);
@@ -21406,18 +21427,18 @@ var updateModel = /*#__PURE__*/function () {
     }, _callee4);
   }));
 
-  return function updateModel(_x6, _x7) {
-    return _ref11.apply(this, arguments);
+  return function updateModel(_x5, _x6) {
+    return _ref13.apply(this, arguments);
   };
 }();
 var removeRecord = /*#__PURE__*/function () {
-  var _ref13 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref12, recordId) {
+  var _ref15 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref14, recordId) {
     var commit, state, records;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            commit = _ref12.commit, state = _ref12.state;
+            commit = _ref14.commit, state = _ref14.state;
 
             if (state.selectedModelName) {
               _context5.next = 3;
@@ -21436,8 +21457,8 @@ var removeRecord = /*#__PURE__*/function () {
             commit('DELETING_RECORD', false);
             records = state.records;
             if (!records) records = [];
-            records = records.filter(function (_ref14) {
-              var _id = _ref14._id;
+            records = records.filter(function (_ref16) {
+              var _id = _ref16._id;
               return _id !== recordId;
             });
             commit('SET_RECORDS', records);
@@ -21460,8 +21481,8 @@ var removeRecord = /*#__PURE__*/function () {
     }, _callee5, null, [[4, 16]]);
   }));
 
-  return function removeRecord(_x8, _x9) {
-    return _ref13.apply(this, arguments);
+  return function removeRecord(_x7, _x8) {
+    return _ref15.apply(this, arguments);
   };
 }();
 
@@ -21495,10 +21516,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   getters: {
     selectedModel: function selectedModel(state) {
       if (!state.selectedModelName || !state.models) return null;
-      return state.models.find(function (_ref) {
+      var model = state.models.find(function (_ref) {
         var name = _ref.name;
         return name === state.selectedModelName;
       });
+      if (model && model.fields) model.fields = JSON.parse(model.fields);
+      return model;
     },
     selectedRecord: function selectedRecord(state) {
       if (!state.selectedRecordId || !state.records) return null;

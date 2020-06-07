@@ -26,11 +26,18 @@ import { mapState } from 'vuex';
 export default {
     name: 'PierCMSWrapper',
     mounted(){
-        if(this.$route.path === "/")
-            this.$router.replace("/" + window.models[0].name);
+        if(this.$route.path === "/"){
+            const modelName = window.models[0].name;
+            this.$store.dispatch('setSelectedModel', modelName);
+            this.$router.replace("/" + modelName);
+        }
+        else if(!this.selectedModelName || !this.selectedModelName.length){
+            this.$store.dispatch('setSelectedModel', this.$route.path.split("/")[1]);
+        }
 
-        if(!this.models)
+        if(!this.models){
             this.$store.dispatch('setModels', window.models);
+        }
     },
     computed: {
         ...mapState(['models', 'selectedModelName'])

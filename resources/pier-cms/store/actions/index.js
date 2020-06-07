@@ -1,4 +1,4 @@
-import { handleNetworkError, showSuccessToast } from '../../Utils';
+import { handleNetworkError, showSuccessToast, toPascalCase } from '../../Utils';
 import { fetchModelRecords, insertRecord, deleteRecord, populateModel } from '../../API';
 import router from '../../router';
 
@@ -25,13 +25,23 @@ export const populateRecords = async ({ state, commit }) => {
     }
 }
 
-export const fetchRecords = async ({ state, commit }, fetchParams) => {
-    if(!state.selectedModelName)
+export const fetchRecords = async ({ state, getters, commit }) => {
+    if(!state.selectedModelName || !getters.selectedModel)
         return;
+
+    const fields = getters.selectedModel.fields;
+    const referenceFields = fields.filter(({type}) => type === "reference");
+    let referenceParams = [];
+    referenceFields.forEach(({label, meta}) => {
+        const pascalLabel = toPascalCase(label);
+        let param = `with${pascalLabel}`;
+        param += pascalLabel !== meta.model ? 'From' + meta.model : '';
+        referenceParams.push(param);
+    });
 
     commit('FETCHING_RECORDS', true);
     try {
-        const records = await fetchModelRecords(state.selectedModelName, fetchParams);
+        const records = await fetchModelRecords(state.selectedModelName, referenceParams.join("&"));
         commit('FETCHING_RECORDS', false);
         commit('SET_RECORDS', records);
     } catch (error) {

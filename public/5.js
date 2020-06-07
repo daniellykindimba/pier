@@ -420,7 +420,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var fields, referenceFields, referenceParams;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -433,24 +432,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return _context.abrupt("return");
 
               case 2:
-                fields = _this.model.fields;
-                referenceFields = fields.filter(function (_ref) {
-                  var type = _ref.type;
-                  return type === "reference";
-                });
-                referenceParams = [];
-                referenceFields.forEach(function (_ref2) {
-                  var label = _ref2.label,
-                      meta = _ref2.meta;
-                  var pascalLabel = Object(_Utils__WEBPACK_IMPORTED_MODULE_2__["toPascalCase"])(label);
-                  var param = "with".concat(Object(_Utils__WEBPACK_IMPORTED_MODULE_2__["toPascalCase"])(label));
-                  param += pascalLabel !== meta.model ? 'From' + meta.model : '';
-                  referenceParams.push(param);
-                });
+                _this.$store.dispatch('fetchRecords');
 
-                _this.$store.dispatch('fetchRecords', referenceParams.join("&"));
-
-              case 7:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -494,6 +478,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _List__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./List */ "./resources/pier-cms/UI/List/index.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -516,6 +507,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PierCMS',
@@ -533,6 +525,7 @@ __webpack_require__.r(__webpack_exports__);
       model: {}
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['selectedModel'])),
   watch: {
     modelName: function modelName() {
       this.setupModel();
@@ -540,19 +533,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     setupModel: function setupModel() {
-      var _this = this;
-
       if (!this.modelName) return;
       this.$store.dispatch('setSelectedModel', this.modelName);
-      var model = window.models.find(function (_ref) {
-        var name = _ref.name;
-        return name === _this.modelName;
-      });
-
-      if (model) {
-        model.fields = JSON.parse(model.fields);
-        this.model = model;
-      }
     }
   },
   components: {
@@ -742,10 +724,16 @@ var render = function() {
               { staticClass: "inline-flex items-center justify-center" },
               [
                 _c(
-                  "button",
+                  "router-link",
                   {
                     staticClass:
-                      "border-none bg-transparent border-orange-500 text-gray-600 mr-2 py-1 px-2"
+                      "border-none bg-transparent border-orange-500 text-gray-600 mr-2 py-1 px-2",
+                    attrs: {
+                      to:
+                        "" +
+                        _vm.$route.path.replace("list", "detail") +
+                        _vm.data._id
+                    }
                   },
                   [
                     _c(
@@ -805,7 +793,7 @@ var render = function() {
                     staticClass:
                       "border-none bg-transparent text-red-500 py-1 px-2",
                     attrs: {
-                      to: _vm.$route.path + "/" + _vm.data._id + "/delete"
+                      to: "" + _vm.$route.path + _vm.data._id + "/delete"
                     }
                   },
                   [
@@ -1003,7 +991,7 @@ var render = function() {
             "router-link",
             {
               staticClass: "rounded-btn border mt-0 ml-3",
-              attrs: { to: "/" + _vm.modelName + "/add" }
+              attrs: { to: "/" + _vm.modelName + "/list/add" }
             },
             [_vm._v("\n        Add New " + _vm._s(_vm.modelName) + "\n    ")]
           ),
@@ -1016,7 +1004,7 @@ var render = function() {
       _c(
         "div",
         { attrs: { id: "mainContent" } },
-        [_c("ModelRecordList", { attrs: { model: _vm.model } })],
+        [_c("ModelRecordList", { attrs: { model: _vm.selectedModel } })],
         1
       ),
       _vm._v(" "),

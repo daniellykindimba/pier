@@ -5,7 +5,7 @@
         {{ modelName }}
       </span>
 
-      <router-link :to="`/${modelName}/add`" class="rounded-btn border mt-0 ml-3">
+      <router-link :to="`/${modelName}/list/add`" class="rounded-btn border mt-0 ml-3">
           Add New {{ modelName }}
       </router-link>
 
@@ -13,7 +13,7 @@
     </header>
         
     <div id="mainContent">
-      <ModelRecordList :model="model" />
+      <ModelRecordList :model="selectedModel" />
     </div>
 
     <router-view />
@@ -22,6 +22,7 @@
 
 <script>
   import ModelRecordList from './List';
+import { mapGetters } from 'vuex';
 
   export default {
     name: 'PierCMS',
@@ -39,6 +40,9 @@
         model: {}
       };
     },
+    computed: {
+      ...mapGetters(['selectedModel'])
+    },
     watch: {
       modelName: function(){
         this.setupModel();
@@ -48,13 +52,7 @@
       setupModel(){
         if(!this.modelName)
           return;
-
         this.$store.dispatch('setSelectedModel', this.modelName);
-        let model = window.models.find(({name}) => name === this.modelName);
-        if(model){
-          model.fields = JSON.parse(model.fields);
-          this.model = model;
-        }
       },
     },
     components: {

@@ -16,7 +16,11 @@ export default new vuex.Store({
       if(!state.selectedModelName || !state.models)
         return null;
 
-      return state.models.find(({name}) => name === state.selectedModelName)
+      let model = state.models.find(({name}) => name === state.selectedModelName);
+      if(model && model.fields)
+        model.fields = JSON.parse(model.fields);
+        
+      return model;
     },
     selectedRecord: state => {
       if(!state.selectedRecordId || !state.records)

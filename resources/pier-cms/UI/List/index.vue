@@ -91,18 +91,8 @@
       async fetchRecords(){
         if(!this.model.fields)
           return;
-
-        const fields = this.model.fields;
-        const referenceFields = fields.filter(({type}) => type === "reference");
-        let referenceParams = [];
-        referenceFields.forEach(({label, meta}) => {
-          const pascalLabel = toPascalCase(label);
-          let param = `with${toPascalCase(label)}`;
-          param += pascalLabel !== meta.model ? 'From' + meta.model : '';
-          referenceParams.push(param);
-        });
         
-        this.$store.dispatch('fetchRecords', referenceParams.join("&"));
+        this.$store.dispatch('fetchRecords');
       },
       async populateRecords(){
         this.$store.dispatch('populateRecords');
