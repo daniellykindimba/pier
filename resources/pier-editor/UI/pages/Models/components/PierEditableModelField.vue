@@ -128,10 +128,17 @@
                   />
                 </c-form-control>
 
-                <PierModelFieldOption
-                  v-for="(option, key) in field.type.options" :key="key"
-                  v-model="field.type.options[key]"
+                <PierModelReferenceFieldOption
+                  v-if="field.type.value === 'reference'"
+                  v-model="field.type.options"
                 />
+
+                <template v-else>
+                  <PierModelFieldOption :key="key"
+                    v-for="(option, key) in field.type.options"
+                    v-model="field.type.options[key]"
+                  />
+                </template>
 
                 <c-form-control mb="6">
                     <c-switch id="required" mr="2"
@@ -160,6 +167,16 @@
                         <span>{{type.label}}</span>
                       </label>
                     </template>
+
+                    <label
+                      :for="`dbFieldtypeReference`"
+                      class="action-label text-center"
+                      :class="{'active' : field.type && field.type.value === 'reference'}"
+                      @click="setFieldType('reference')"
+                    >
+                      <MDIcon icon="reference" :size="32" />
+                      <span>Reference</span>
+                    </label>
                   </div>
                 </c-box>
               </c-form-control>
@@ -189,6 +206,7 @@ import {
 
 import dbFieldTypes from "../DbFieldTypes";
 import MDIcon from "./MDIcon";
+import PierModelReferenceFieldOption from "./PierModelReferenceFieldOption";
 import PierModelFieldOption from "./PierModelFieldOption";
 
 export default {
@@ -219,6 +237,13 @@ export default {
   },
   methods: {
     setFieldType(type) {
+      if(type === 'reference'){
+        type = {
+          label: 'Reference',
+          value: 'reference',
+          options: {}
+        }
+      }
       const clonedType = JSON.parse(JSON.stringify(type));
       this.field = {
         label: "",
@@ -247,6 +272,7 @@ export default {
     CInput,
     CCheckbox,
     CSwitch,
+    PierModelReferenceFieldOption,
     PierModelFieldOption
   }
 };

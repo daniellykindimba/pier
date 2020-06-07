@@ -167,8 +167,9 @@ class PierMigration extends Model{
                 $label = $field['label'];
                 $type = $field['type'];
                 $nullable = !$field['required'];
-    
-                self::field_type_map($table, $label, $type, $nullable);
+                $meta = isset($field['meta']) ? $field['meta'] : null;
+
+                self::field_type_map($table, $label, $type, $nullable, $meta);
             };
             
             $table->timestamps();
@@ -232,14 +233,19 @@ class PierMigration extends Model{
                 return $faker->randomElement(array (0,1));
                 
             case 'date':
-                return $faker->dateTimeBetween('now', '+3 months', null)->format('Y-m-d H:i:s');
+                return $faker->dateTimeBetween('+2 months', '+4 months', null)->format('Y-m-d H:i:s');
+                
+            case 'reference':{
+                $reference = self::browse($meta->model)->random(1)->first();
+                return $reference->_id;
+            }
             
             default:
                 return "";
         }
     }
     
-    static private function field_type_map(Blueprint $table, $field, $type, $nullable){
+    static private function field_type_map(Blueprint $table, $field, $type, $nullable, $meta){
         $processed = null;
 
         switch ($type) {
@@ -300,15 +306,29 @@ class PierMigration extends Model{
                 break;
                 
             case 'date':
-                $processed = $table->timestamp($field)->useCurrent();
+                $processed = $table->timestamp($field);
                 break;
+                
+            case 'reference':{
+                $referenceTable = Str::snake($meta['model']);
+                $processed = $table->uuid($field);
+                $table->foreign($field)
+                    ->references('_id')
+                    ->on($referenceTable)
+                    ->onDelete('cascade');
+                break;
+            }
             
             default:
                 $processed = $table->string($field);
                 break;
         }
 
-        if($type !== 'date' && $nullable)
-            $processed->nullable();
+        if($nullable && $type !== 'reference'){
+            if($type === 'date')
+                $processed->useCurrent();
+            else
+                $processed->nullable();
+        }
     }
 }

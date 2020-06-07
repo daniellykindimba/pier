@@ -25,9 +25,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_material_design_icons_Calendar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vue-material-design-icons/Calendar */ "./node_modules/vue-material-design-icons/Calendar.vue");
 /* harmony import */ var vue_material_design_icons_MapMarker__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vue-material-design-icons/MapMarker */ "./node_modules/vue-material-design-icons/MapMarker.vue");
 /* harmony import */ var vue_material_design_icons_StarFace__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vue-material-design-icons/StarFace */ "./node_modules/vue-material-design-icons/StarFace.vue");
-/* harmony import */ var vue_material_design_icons_ArrowDown__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vue-material-design-icons/ArrowDown */ "./node_modules/vue-material-design-icons/ArrowDown.vue");
-/* harmony import */ var vue_material_design_icons_Delete__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! vue-material-design-icons/Delete */ "./node_modules/vue-material-design-icons/Delete.vue");
-/* harmony import */ var vue_material_design_icons_Plus__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! vue-material-design-icons/Plus */ "./node_modules/vue-material-design-icons/Plus.vue");
+/* harmony import */ var vue_material_design_icons_DatabaseImport__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vue-material-design-icons/DatabaseImport */ "./node_modules/vue-material-design-icons/DatabaseImport.vue");
+/* harmony import */ var vue_material_design_icons_ArrowDown__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! vue-material-design-icons/ArrowDown */ "./node_modules/vue-material-design-icons/ArrowDown.vue");
+/* harmony import */ var vue_material_design_icons_Delete__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! vue-material-design-icons/Delete */ "./node_modules/vue-material-design-icons/Delete.vue");
+/* harmony import */ var vue_material_design_icons_Plus__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! vue-material-design-icons/Plus */ "./node_modules/vue-material-design-icons/Plus.vue");
+
 
 
 
@@ -59,7 +61,7 @@ __webpack_require__.r(__webpack_exports__);
   render: function render(h) {
     switch (this.icon) {
       case 'add':
-        return h(vue_material_design_icons_Plus__WEBPACK_IMPORTED_MODULE_18__["default"], {
+        return h(vue_material_design_icons_Plus__WEBPACK_IMPORTED_MODULE_19__["default"], {
           "attrs": {
             "color": "currentColor",
             "size": this.size
@@ -67,7 +69,7 @@ __webpack_require__.r(__webpack_exports__);
         });
 
       case 'down':
-        return h(vue_material_design_icons_ArrowDown__WEBPACK_IMPORTED_MODULE_16__["default"], {
+        return h(vue_material_design_icons_ArrowDown__WEBPACK_IMPORTED_MODULE_17__["default"], {
           "attrs": {
             "color": "currentColor",
             "size": this.size
@@ -154,6 +156,14 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
 
+      case 'reference':
+        return h(vue_material_design_icons_DatabaseImport__WEBPACK_IMPORTED_MODULE_16__["default"], {
+          "attrs": {
+            "color": "currentColor",
+            "size": this.size
+          }
+        });
+
       case 'long text':
         return h(vue_material_design_icons_FormatIndentIncrease__WEBPACK_IMPORTED_MODULE_10__["default"], {
           "attrs": {
@@ -195,7 +205,7 @@ __webpack_require__.r(__webpack_exports__);
         });
 
       case 'delete':
-        return h(vue_material_design_icons_Delete__WEBPACK_IMPORTED_MODULE_17__["default"], {
+        return h(vue_material_design_icons_Delete__WEBPACK_IMPORTED_MODULE_18__["default"], {
           "attrs": {
             "color": "currentColor",
             "size": this.size

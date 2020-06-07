@@ -16,6 +16,7 @@ import Switch from 'vue-material-design-icons/ToggleSwitch';
 import Date from 'vue-material-design-icons/Calendar';
 import Location from 'vue-material-design-icons/MapMarker';
 import Rating from 'vue-material-design-icons/StarFace';
+import Reference from 'vue-material-design-icons/DatabaseImport';
 
 import ArrowDown from 'vue-material-design-icons/ArrowDown';
 import Delete from 'vue-material-design-icons/Delete';
@@ -67,6 +68,9 @@ export default {
                 
             case 'rating':
                 return <Rating color="currentColor" size={this.size} />;
+            
+            case 'reference':
+                return <Reference color="currentColor" size={this.size} />;
                 
             case 'long text':
                 return <LongText color="currentColor" size={this.size} />;

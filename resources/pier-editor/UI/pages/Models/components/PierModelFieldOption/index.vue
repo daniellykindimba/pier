@@ -41,8 +41,11 @@ export default {
         }
     },
     watch: {
-        option: function(newValue){
-            this.$emit('input', newValue);
+        option: {
+            deep: true,
+            handler: function(newValue){
+                this.$emit('input', newValue);
+            }
         }
     },
     components: {

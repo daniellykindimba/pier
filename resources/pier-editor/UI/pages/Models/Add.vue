@@ -158,10 +158,13 @@ export default {
           };
 
           const fieldOptions = {...field.type.options};
-          const fieldMeta = {};
+          let fieldMeta = {};
           for (let [key, option] of Object.entries(fieldOptions)) {
             if(option.value !== undefined)
               fieldMeta[key] = option.value;
+
+            if(option.meta !== undefined && Object.keys(option.meta).length)
+              fieldMeta = {...fieldMeta, ...option.meta};
           }
 
           if(Object.keys(fieldOptions).length)
