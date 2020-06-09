@@ -21239,12 +21239,12 @@ var setSelectedModel = function setSelectedModel(_ref2, model) {
 };
 var populateRecords = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref3) {
-    var state, commit, records;
+    var state, commit, dispatch;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            state = _ref3.state, commit = _ref3.commit;
+            state = _ref3.state, commit = _ref3.commit, dispatch = _ref3.dispatch;
 
             if (state.selectedModelName) {
               _context.next = 3;
@@ -21260,24 +21260,22 @@ var populateRecords = /*#__PURE__*/function () {
             return Object(_API__WEBPACK_IMPORTED_MODULE_2__["populateModel"])(state.selectedModelName);
 
           case 7:
-            records = _context.sent;
-            commit('POPULATING_RECORDS', false);
-            commit('SET_RECORDS', records);
-            _context.next = 16;
+            dispatch('fetchRecords');
+            _context.next = 14;
             break;
 
-          case 12:
-            _context.prev = 12;
+          case 10:
+            _context.prev = 10;
             _context.t0 = _context["catch"](4);
             Object(_Utils__WEBPACK_IMPORTED_MODULE_1__["handleNetworkError"])(_context.t0, "Error populating ".concat(state.selectedModelName, ":"));
             commit('POPULATING_RECORDS', false);
 
-          case 16:
+          case 14:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[4, 12]]);
+    }, _callee, null, [[4, 10]]);
   }));
 
   return function populateRecords(_x) {
